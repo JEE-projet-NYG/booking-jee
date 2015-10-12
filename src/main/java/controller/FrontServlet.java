@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("users")
+@WebServlet("/")
 public class FrontServlet extends HttpServlet {
 
     @PersistenceContext(unitName = "rootUnit")
@@ -19,7 +19,7 @@ public class FrontServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //req.setAttribute("users", ServiceUser.getUsers());
         //em.createQuery("SELECT usr from User usr").getResultList();
-        req.setAttribute("users", em.createQuery("SELECT usr from User usr").getResultList());
+        //req.setAttribute("users", em.createQuery("SELECT usr from User usr").getResultList());
     }
 
     @Override

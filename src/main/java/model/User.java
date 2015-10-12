@@ -1,17 +1,13 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
+//@Entity
 public class User {
 
-    @Id
-    @Column(name = "id", nullable = false)
+    //@Id
+    //@Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "login", nullable = false)
+    //@Column(name = "login", nullable = false)
     private String login;
 
     public Long getId() {
