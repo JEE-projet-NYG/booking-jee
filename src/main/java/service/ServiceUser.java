@@ -36,7 +36,7 @@ public interface ServiceUser {
      *
      * @param id the id of the user to delete
      */
-    void delete(final Integer id);
+    void delete(final Long id);
 
     /**
      * Update an user

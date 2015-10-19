@@ -27,7 +27,7 @@ public class ServiceUserImpl implements ServiceUser {
     }
 
     @Override
-    public void delete(final Integer id) {
+    public void delete(final Long id) {
         UserDao.getDAO().delete(id);
     }
 
