@@ -2,6 +2,7 @@ package dao;
 
 import config.Config;
 import model.Ressource;
+import model.User;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -13,7 +14,7 @@ public class RessourceDAO {
 
     public static RessourceDAO getDAO() { return new RessourceDAO(); }
 
-    public Ressource find(final Long id) { Config.em.find(Ressource.class, id); }
+    public Ressource find(final Long id) { return Config.em.find(Ressource.class, id); }
 
     public void create(Ressource r) { Config.em.persist(r); }
 
@@ -33,7 +34,7 @@ public class RessourceDAO {
         final String displayByNameQuery = "SELECT res" +
                                           "FROM Ressource res" +
                                           "WHERE res.name like '%'"+name+"'%'";
+        TypedQuery e = Config.em.createQuery(displayByNameQuery, Ressource.class);
+        return e.getResultList();
     }
-
-
 }
