@@ -1,6 +1,5 @@
 package controller;
 
-import config.Config;
 import model.User;
 import service.ServiceUser;
 import service.impl.ServiceUserImpl;
@@ -20,24 +19,12 @@ public class FrontServlet extends HttpServlet {
 
         // Test code at root context
         resp.setContentType("text/html");
-        resp.getOutputStream().println("<h1>Yo " +
-                Config.em.toString() +
-                "</h1>");
-
-        User u1 = new User();
-        u1.setAdmin(Boolean.TRUE);
-        u1.setFirstname("guillaume");
-        u1.setLastname("pouilloux");
-        u1.setLogin("gpouilloux");
-        u1.setMailAddress("gui.pouilloux@gmail.com");
-        u1.setPassword("azerty");
-        u1.setPhoneNumber("0102030405");
 
         ServiceUser su = new ServiceUserImpl();
-        su.create(u1);
+        for (User u : su.listAll()) {
+            resp.getOutputStream().println("<p>" + u.toString() + "</p>");
+        }
 
-        User uFind = su.find(1L);
-        resp.getOutputStream().println(uFind != null ? uFind.toString() : "");
         //**************************************************************//
 
     }
