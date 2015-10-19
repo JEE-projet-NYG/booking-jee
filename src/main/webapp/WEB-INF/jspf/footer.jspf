@@ -1,2 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<p>Mon footer</p>
+<footer>
+    <div class="row">
+        <p class="col-lg-4">Created by Guillaume Pouilloux, Yann Rolland and Nathanaël Gimenez.</p>
+        <p class="col-lg-4">This is a short project during our learning of (old) JavaEE.</p>
+        <p class="col-lg-4">2015</p>
+    </div>
+</footer>
