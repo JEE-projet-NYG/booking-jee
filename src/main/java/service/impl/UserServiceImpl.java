@@ -2,14 +2,14 @@ package service.impl;
 
 import dao.UserDao;
 import model.User;
-import service.ServiceUser;
+import service.UserService;
 
 import java.util.List;
 
 /**
- * Implementation of {ServiceUser
+ * Implementation of {UserService
  */
-public class ServiceUserImpl implements ServiceUser {
+public class UserServiceImpl implements UserService {
 
     @Override
     public User find(final Long id) {

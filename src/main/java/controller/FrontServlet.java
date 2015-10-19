@@ -1,7 +1,8 @@
 package controller;
 
-import service.ServiceUser;
-import service.impl.ServiceUserImpl;
+import config.Config;
+import service.UserService;
+import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/action/*")
+@WebServlet("/" + Config.APP_NAME + "/*")
 public class FrontServlet extends HttpServlet {
 
     @Override
@@ -19,7 +20,7 @@ public class FrontServlet extends HttpServlet {
         // Test code at root context
         resp.setContentType("text/html");
 
-        ServiceUser su = new ServiceUserImpl();
+        UserService su = new UserServiceImpl();
         for (User u : su.listAll()) {
             resp.getOutputStream().println("<p>" + u.toString() + "</p>");
         }*/
@@ -27,7 +28,7 @@ public class FrontServlet extends HttpServlet {
         //**************************************************************//
 
         final String pathInfo = req.getPathInfo();
-        final ServiceUser su = new ServiceUserImpl();
+        final UserService su = new UserServiceImpl();
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
@@ -41,7 +42,9 @@ public class FrontServlet extends HttpServlet {
                 case "/login":
                     req.setAttribute("page", "login.jsp");
                     break;
-
+                default:
+                    req.setAttribute("page", "404.jsp");
+                    break;
             }
             req.getRequestDispatcher("/template.jsp").forward(req, resp);
         }

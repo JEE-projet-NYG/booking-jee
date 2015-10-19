@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Interface for the {User}
  */
-public interface ServiceUser {
+public interface UserService {
 
     /**
      * Find an user by its ind

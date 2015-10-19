@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <h1>Users list</h1>
-<table>
+<table class="table table-striped table-hover table-condensed">
     <tr>
         <td>Id</td>
         <td>Login</td>
