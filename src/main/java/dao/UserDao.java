@@ -48,8 +48,8 @@ public class UserDao {
      *
      * @param id the id of the user to delete
      */
-    public void delete(final Integer id) {
-        Config.em.remove(Config.em.find(User.class, id));
+    public void delete(final Long id) {
+        Config.em.remove(this.find(id));
     }
 
     /**
