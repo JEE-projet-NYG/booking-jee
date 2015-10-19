@@ -7,7 +7,7 @@ import service.UserService;
 import java.util.List;
 
 /**
- * Implementation of {UserService
+ * Implementation of {UserService}
  */
 public class UserServiceImpl implements UserService {
 
