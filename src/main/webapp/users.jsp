@@ -11,6 +11,8 @@
         <td>Mail address</td>
         <td>Phone number</td>
         <td>Admin</td>
+        <td>Edit</td>
+        <td>Delete</td>
     </tr>
     <c:forEach var="user" items="${requestScope.users}">
         <tr>
@@ -22,6 +24,8 @@
             <td>${user.mailAddress}</td>
             <td>${user.phoneNumber}</td>
             <td>${user.admin}</td>
+            <td><a href="#"><i class="glyphicon glyphicon-pencil"></i></a></td>
+            <td><a href="#" onclick="deleteUser(${user.id})"><i class="glyphicon glyphicon-trash"></i></a></td>
         </tr>
     </c:forEach>
 </table>
