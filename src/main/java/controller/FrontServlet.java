@@ -1,7 +1,5 @@
 package controller;
 
-import config.Config;
-import model.User;
 import service.ServiceUser;
 import service.impl.ServiceUserImpl;
 
@@ -12,33 +10,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
+@WebServlet("/action/*")
 public class FrontServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+/*
         // Test code at root context
         resp.setContentType("text/html");
-        resp.getOutputStream().println("<h1>Yo " +
-                Config.em.toString() +
-                "</h1>");
-
-        User u1 = new User();
-        u1.setAdmin(Boolean.TRUE);
-        u1.setFirstname("guillaume");
-        u1.setLastname("pouilloux");
-        u1.setLogin("gpouilloux");
-        u1.setMailAddress("gui.pouilloux@gmail.com");
-        u1.setPassword("azerty");
-        u1.setPhoneNumber("0102030405");
 
         ServiceUser su = new ServiceUserImpl();
-        su.create(u1);
+        for (User u : su.listAll()) {
+            resp.getOutputStream().println("<p>" + u.toString() + "</p>");
+        }*/
 
-        User uFind = su.find(1L);
-        resp.getOutputStream().println(uFind != null ? uFind.toString() : "");
         //**************************************************************//
+
+        final String pathInfo = req.getPathInfo();
+        final ServiceUser su = new ServiceUserImpl();
+        if (pathInfo != null) {
+            switch (pathInfo) {
+                case "/":
+                    req.setAttribute("page", "accueil.jsp");
+                    //req.setAttribute("info", Service.getInfoClub());
+                    break;
+                case "/users":
+                    req.setAttribute("users", su.listAll());
+                    req.setAttribute("page", "users.jsp");
+                    break;
+                case "/login":
+                    req.setAttribute("page", "login.jsp");
+                    break;
+
+            }
+            req.getRequestDispatcher("/template.jsp").forward(req, resp);
+        }
 
     }
 
