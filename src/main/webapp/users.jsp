@@ -18,13 +18,25 @@
     <c:forEach var="user" items="${requestScope.users}">
         <tr>
             <td class="id">${user.id}</td>
-            <td>${user.login}</td>
-            <td>${user.password}</td>
-            <td>${user.lastname}</td>
-            <td>${user.firstname}</td>
-            <td>${user.mailAddress}</td>
-            <td>${user.phoneNumber}</td>
-            <td>${user.admin}</td>
+            <td class="login">${user.login}</td>
+            <td class="password">${user.password}</td>
+            <td class="lastname">${user.lastname}</td>
+            <td class="firstname">${user.firstname}</td>
+            <td class="mailAddress">${user.mailAddress}</td>
+            <td class="phoneNumber">${user.phoneNumber}</td>
+            <td class="admin">
+                <i class="glyphicon
+                    <c:choose>
+                        <c:when test="${user.admin == 'true'}">
+                            glyphicon-check
+                        </c:when>
+                        <c:otherwise>
+                            glyphicon-unchecked
+                        </c:otherwise>
+                    </c:choose>
+                "></i>
+            </td>
+
             <td><a class="edit" href="#"><i class="glyphicon glyphicon-pencil"></i></a></td>
             <td><a class="delete" href="#"><i class="glyphicon glyphicon-trash"></i></a></td>
         </tr>
