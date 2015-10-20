@@ -1,18 +1,14 @@
 package controller;
 import model.User;
 import service.UserService;
+import service.impl.UserServiceImpl;
 
-import javax.ejb.Stateless;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Stateless
 @Path("/users")
 public class UserController {
-
-    // TODO inject or retrieve this service
-    UserService userService;
 
     @PUT
     @Path("{id}")
@@ -21,15 +17,23 @@ public class UserController {
         if(user == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        return Response.status(200)
+        return Response.status(Response.Status.OK)
                 .entity("Will create user : " + user).build();
     }
 
     @DELETE
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Long id) {
-        return Response.status(200)
-                .entity("Will delete user : " + id).build();
+        final UserService userService = new UserServiceImpl();
+        final User user = userService.find(id);
+
+        if(user == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        userService.delete(user);
+
+        return Response.status(Response.Status.OK)
+                .entity("User " + user.getLogin() + " has been successfully deleted.").build();
     }
 
 }

@@ -22,6 +22,9 @@
             <!-- BODY -->
             <jsp:include page="${requestScope.page}"/>
 
+            <!-- MODALES -->
+            <%@ include file="WEB-INF/jspf/modals.jspf" %>
+
             <!-- MESSAGE -->
             <%@ include file="WEB-INF/jspf/message.jspf" %>
 

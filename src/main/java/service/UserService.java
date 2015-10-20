@@ -32,13 +32,6 @@ public interface UserService {
     void delete(User u);
 
     /**
-     * Delete an user by its id
-     *
-     * @param id the id of the user to delete
-     */
-    void delete(final Long id);
-
-    /**
      * Update an user
      *
      * @param u the user to update

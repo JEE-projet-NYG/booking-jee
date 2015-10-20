@@ -27,11 +27,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(final Long id) {
-        UserDao.getDAO().delete(id);
-    }
-
-    @Override
     public void update(User u) {
         UserDao.getDAO().update(u);
     }

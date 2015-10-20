@@ -3,6 +3,7 @@ package dao;
 import config.Config;
 import model.User;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -40,16 +41,12 @@ public class UserDao {
      * @param u the user to delete
      */
     public void delete(User u) {
-        Config.em.remove(u);
-    }
+        EntityTransaction trx = Config.em.getTransaction();
+        trx.begin();
 
-    /**
-     * Delete an user by its id
-     *
-     * @param id the id of the user to delete
-     */
-    public void delete(final Long id) {
-        Config.em.remove(this.find(id));
+        Config.em.remove(u);
+
+        trx.commit();
     }
 
     /**
