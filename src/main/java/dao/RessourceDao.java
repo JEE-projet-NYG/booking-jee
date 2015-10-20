@@ -2,7 +2,6 @@ package dao;
 
 import config.Config;
 import model.Ressource;
-import model.User;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -10,9 +9,9 @@ import java.util.List;
 /**
  * Created by ferrilata on 19/10/15.
  */
-public class RessourceDAO {
+public class RessourceDao {
 
-    public static RessourceDAO getDAO() { return new RessourceDAO(); }
+    public static RessourceDao getDAO() { return new RessourceDao(); }
 
     public Ressource find(final Long id) { return Config.em.find(Ressource.class, id); }
 

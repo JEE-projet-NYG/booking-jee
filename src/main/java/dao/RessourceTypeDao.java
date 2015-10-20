@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Created by ferrilata on 19/10/15.
  */
-public class RessourceTypeDAO {
+public class RessourceTypeDao {
 
-    public static RessourceTypeDAO getDAO() { return new RessourceTypeDAO(); }
+    public static RessourceTypeDao getDAO() { return new RessourceTypeDao(); }
 
     public RessourceType find(final Long id) { return Config.em.find(RessourceType.class, id); }
 
