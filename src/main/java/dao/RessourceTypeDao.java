@@ -29,4 +29,18 @@ public class RessourceTypeDao {
         return e.getResultList();
     }
 
+    /**
+     * Find an RessourceType by filtering on its firstname or lastname
+     *
+     * @param name the name you're looking for
+     * @return the list of users matching the filter
+     */
+    public List<RessourceType> list(final String name) {
+        final String displayAllByNameQuery = "Select usr " +
+                "from RessourceType usr " +
+                "where usr.name like '%" + name + "%'";
+        TypedQuery e = Config.em.createQuery(displayAllByNameQuery, RessourceType.class);
+        return e.getResultList();
+    }
+
 }
