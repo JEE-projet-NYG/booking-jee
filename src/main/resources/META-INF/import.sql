@@ -9,4 +9,8 @@ INSERT INTO User (id, admin, firstname, lastname, login, mail_address, password,
 INSERT INTO User (id, admin, firstname, lastname, login, mail_address, password, phone_number) VALUES (4, 0, 'Jon', 'Snow', 'jsnow', 'jsnow@yopmail.fr', 'jsnow', '0101020203');
 INSERT INTO User (id, admin, firstname, lastname, login, mail_address, password, phone_number) VALUES (5, 0, 'Arya', 'Stark', 'astark', 'astark@yopmail.fr', 'astark', '0302010203');
 
+-- RessourceType
+INSERT INTO RESSOURCETYPE (id, name) VALUES (1,'MEUBLE');
 
+-- Ressources
+INSERT INTO RESSOURCE (id, name, description, localisation, responsibleId, typeId) VALUES ('1', 'table', 'ceci est une table magnifique', 'salle B116', 1, 1);
