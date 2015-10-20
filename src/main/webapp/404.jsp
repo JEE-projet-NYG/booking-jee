@@ -1,3 +1,4 @@
+<%@ page import="config.Config" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container">
     <div class="row">
@@ -13,7 +14,7 @@
                     Sorry, an error has occured, Requested page not found!
                 </div>
                 <div class="error-actions">
-                    <a href="${pageContext.request.contextPath}/${Config.APP_NAME}/"
+                    <a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/"
                        class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
                         Take Me Home </a>
                 </div>
