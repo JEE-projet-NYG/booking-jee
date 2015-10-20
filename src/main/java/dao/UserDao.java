@@ -32,7 +32,12 @@ public class UserDao {
      * @param u the user to create
      */
     public void create(User u) {
+        EntityTransaction trx = Config.em.getTransaction();
+        trx.begin();
+
         Config.em.persist(u);
+
+        trx.commit();
     }
 
     /**
