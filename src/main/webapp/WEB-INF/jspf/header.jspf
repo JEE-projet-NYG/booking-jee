@@ -17,6 +17,7 @@
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/">Accueil</a></li>
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/users">Utilisateurs</a></li>
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/ressources">Ressources</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/ressourceTypes">Types Ressources</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/logout">Déconnecter</a></li>

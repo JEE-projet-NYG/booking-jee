@@ -3,8 +3,10 @@ package controller;
 import config.Config;
 import model.Ressource;
 import service.RessourceService;
+import service.RessourceTypeService;
 import service.UserService;
 import service.impl.RessourceServiceImpl;
+import service.impl.RessourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -25,6 +27,7 @@ public class FrontServlet extends HttpServlet {
         final String pathInfo = req.getPathInfo();
         final UserService su = new UserServiceImpl();
         final RessourceService sr = new RessourceServiceImpl();
+        final RessourceTypeService srt = new RessourceTypeServiceImpl();
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
@@ -37,6 +40,10 @@ public class FrontServlet extends HttpServlet {
                 case "/ressources":
                     req.setAttribute("ressources", sr.listAll());
                     req.setAttribute("page", "ressources.jsp");
+                    break;
+                case "/ressourceTypes":
+                    req.setAttribute("ressourceTypes", srt.listAll());
+                    req.setAttribute("page", "ressourceTypes.jsp");
                     break;
                 case "/login":
                     req.setAttribute("page", "login.jsp");
