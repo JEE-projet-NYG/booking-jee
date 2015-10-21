@@ -12,11 +12,10 @@
     </head>
 
     <body>
+        <!-- HEADER -->
+        <%@ include file="WEB-INF/jspf/header.jspf" %>
+    
         <div class="container-fluid">
-            <!-- HEADER -->
-            <div class="row">
-                <%@ include file="WEB-INF/jspf/header.jspf" %>
-            </div>
 
             <!-- MENU -->
             <div class="row">
@@ -24,9 +23,7 @@
             </div>
 
             <!-- BODY -->
-            <div class="row">
-                <jsp:include page="${requestScope.page}"/>
-            </div>
+            <jsp:include page="${requestScope.page}"/>
 
             <!-- MODALS -->
             <%@ include file="WEB-INF/jspf/modals.jspf" %>
