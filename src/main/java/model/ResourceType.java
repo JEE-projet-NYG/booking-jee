@@ -7,7 +7,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-public class RessourceType {
+public class ResourceType {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -17,7 +17,7 @@ public class RessourceType {
     @Column(name="name", nullable = false)
     private String name;
 
-    public RessourceType() {
+    public ResourceType() {
     }
 
     public Long getId() {
@@ -38,7 +38,7 @@ public class RessourceType {
 
     @Override
     public String toString() {
-        return "RessourceType{" +
+        return "ResourceType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

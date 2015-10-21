@@ -1,8 +1,12 @@
 $( document ).ready(function() {
 
     /* When creating an user */
-    $("body").on("click", "button.create", function(e) {
+    $("body").on("click", "button.createUser", function(e) {
         $('#createUserModal').modal('show');
+    });
+
+    $("body").on("click", "button.createResource", function(e) {
+        $('#createResourceModal').modal('show');
     });
 
     $('#createUserForm').on('submit', function(e){
@@ -94,6 +98,93 @@ $( document ).ready(function() {
             alertFailure('An error occured when deleting user.');
         });
     });
+
+    $('#createResourceForm').on('submit', function(e){
+        e.preventDefault();
+        var form = $('#createResourceForm').serialize();
+
+        var request = $.ajax({
+            url: "/api/resources/",
+            type: "put",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#createResourceModal').modal('hide'); // hide the report form
+            $('#createResourceForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully created resource.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            })
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when creating resource.');
+        });
+    });
+
+
+    /* When editing an resource */
+    $("body").on("click", "a.edit", function(e) {
+        var tr = $(this).closest('tr');
+
+        $('#editResourceForm').find('[name="id"]').val(tr.find('.id').text());
+        $('#editResourceForm').find('[name="name"]').val(tr.find('.name').text());
+        $('#editResourceForm').find('[name="description"]').val(tr.find('.description').text());
+        $('#editResourceForm').find('[name="localisation"]').val(tr.find('.localisation').text());
+
+        $('#editResourceModal').modal('show');
+    });
+
+    $('#editResourceForm').on('submit', function(e){
+        e.preventDefault();
+
+        var form = $('#editResourceForm').serialize();
+        var request = $.ajax({
+            url: "/api/resources/",
+            type: "post",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#editResourceModal').modal('hide'); // hide the report form
+            $('#editResourceForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully edited resource.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            })
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when editing resource.');
+        });
+    });
+
+    /* When deleting an resource */
+    $("body").on("click", "#table-resources td a.delete", function(e) {
+
+        var tr = $(this).closest('tr');
+        var id = tr.find('.id').text();
+
+        var request = $.ajax({
+            url: "/api/resources/"+id,
+            type: "delete"
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            tr.remove();
+            alertSuccess('Succesfully deleted resource.');
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when deleting resource.');
+        });
+    });
+    
 });
 
 function alertSuccess(message){

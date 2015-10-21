@@ -1,12 +1,12 @@
 package controller;
 
 import config.Config;
-import model.Ressource;
-import service.RessourceService;
-import service.RessourceTypeService;
+import model.Resource;
+import service.ResourceService;
+import service.ResourceTypeService;
 import service.UserService;
-import service.impl.RessourceServiceImpl;
-import service.impl.RessourceTypeServiceImpl;
+import service.impl.ResourceServiceImpl;
+import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -26,8 +26,8 @@ public class FrontServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String pathInfo = req.getPathInfo();
         final UserService su = new UserServiceImpl();
-        final RessourceService sr = new RessourceServiceImpl();
-        final RessourceTypeService srt = new RessourceTypeServiceImpl();
+        final ResourceService sr = new ResourceServiceImpl();
+        final ResourceTypeService srt = new ResourceTypeServiceImpl();
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
@@ -37,13 +37,13 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("users", su.listAll());
                     req.setAttribute("page", "users.jsp");
                     break;
-                case "/ressources":
-                    req.setAttribute("ressources", sr.listAll());
-                    req.setAttribute("page", "ressources.jsp");
+                case "/resources":
+                    req.setAttribute("resources", sr.listAll());
+                    req.setAttribute("page", "resources.jsp");
                     break;
-                case "/ressourceTypes":
-                    req.setAttribute("ressourceTypes", srt.listAll());
-                    req.setAttribute("page", "ressourceTypes.jsp");
+                case "/resourceTypes":
+                    req.setAttribute("resourceTypes", srt.listAll());
+                    req.setAttribute("page", "resourceTypes.jsp");
                     break;
                 case "/login":
                     req.setAttribute("page", "login.jsp");

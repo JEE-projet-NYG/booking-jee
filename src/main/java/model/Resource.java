@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by ferrilata on 19/10/15.
  */
 @Entity
-public class Ressource {
+public class Resource {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -28,9 +28,17 @@ public class Ressource {
 
     @ManyToOne
     @JoinColumn(name="typeId")
-    private RessourceType type;
+    private ResourceType type;
 
-    public Ressource() {
+    public Resource() {
+    }
+
+    public Resource(String name, String description, String localisation, User responsible, ResourceType type) {
+        this.name = name;
+        this.description = description;
+        this.localisation = localisation;
+        this.responsible = responsible;
+        this.type = type;
     }
 
     public Long getId() {
@@ -73,17 +81,17 @@ public class Ressource {
         this.responsible = responsible;
     }
 
-    public RessourceType getType() {
+    public ResourceType getType() {
         return type;
     }
 
-    public void setType(RessourceType type) {
+    public void setType(ResourceType type) {
         this.type = type;
     }
 
     @Override
     public String toString() {
-        return "Ressource{" +
+        return "Resource{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
