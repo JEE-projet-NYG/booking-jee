@@ -10,12 +10,20 @@ import java.util.List;
 public interface UserService {
 
     /**
-     * Find an user by its ind
+     * Find an user by its id
      *
      * @param id the id of the user
      * @return the user matching the id
      */
     User find(final Long id);
+
+    /**
+     * Find an user by its login
+     *
+     * @param login the login of the user
+     * @return the user matching the login
+     */
+    User find(final String login);
 
     /**
      * Create an user

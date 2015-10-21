@@ -17,6 +17,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User find(final String login) {
+        List<User> users = UserDao.getDAO().listAll();
+        for (User u : users) {
+            if (u.getLogin().equals(login)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public void create(User u) {
         UserDao.getDAO().create(u);
     }

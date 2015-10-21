@@ -9,6 +9,7 @@ $( document ).ready(function() {
         $('#createResourceModal').modal('show');
     });
 
+
     $('#createUserForm').on('submit', function(e){
         e.preventDefault();
         var form = $('#createUserForm').serialize().replace("admin=on", "admin=true");
