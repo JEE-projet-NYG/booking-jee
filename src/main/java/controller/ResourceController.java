@@ -1,7 +1,13 @@
 package controller;
 import model.Resource;
+import model.ResourceType;
+import model.User;
 import service.ResourceService;
+import service.ResourceTypeService;
+import service.UserService;
 import service.impl.ResourceServiceImpl;
+import service.impl.ResourceTypeServiceImpl;
+import service.impl.UserServiceImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -11,17 +17,26 @@ public class ResourceController {
 
     @PUT
     public Response createResource(@FormParam("name") final String name,
-                                    @FormParam("description") final String description,
-                                    @FormParam("localisation") final String localisation,
-                                    @FormParam("responsibleId") final Long responsibleId,
-                                    @FormParam("typeId") final Long typeId) {
+                                   @FormParam("description") final String description,
+                                   @FormParam("localisation") final String localisation,
+                                   @FormParam("responsibleId") final Long responsibleId,
+                                   @FormParam("resourceTypeId") final Long typeId) {
 
+        final UserService userService = new UserServiceImpl();
         final ResourceService resourceService = new ResourceServiceImpl();
-        final Resource resource = new Resource(name,description,localisation,null,null);
+        final ResourceTypeService resourceTypeService = new ResourceTypeServiceImpl();
 
-        if(resource == null) {
+        User responsible = userService.find(responsibleId);
+        if(responsible == null){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+
+        ResourceType resourceType = resourceTypeService.find(typeId);
+        if(resourceType == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        final Resource resource = new Resource(name,description,localisation,responsible,resourceType);
 
         resourceService.create(resource);
         return Response.status(Response.Status.OK)
@@ -35,10 +50,22 @@ public class ResourceController {
                                   @FormParam("description") final String description,
                                   @FormParam("localisation") final String localisation,
                                   @FormParam("responsibleId") final Long responsibleId,
-                                  @FormParam("typeId") final Long typeId) {
+                                  @FormParam("resourceTypeId") final Long typeId) {
 
         final ResourceService resourceService = new ResourceServiceImpl();
         final Resource resource = resourceService.find(id);
+        final UserService userService = new UserServiceImpl();
+        final ResourceTypeService resourceTypeService = new ResourceTypeServiceImpl();
+
+        User responsible = userService.find(responsibleId);
+        if(responsible == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        ResourceType resourceType = resourceTypeService.find(typeId);
+        if(resourceType == null){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 
         if(resource == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -47,8 +74,8 @@ public class ResourceController {
         resource.setName(name);
         resource.setDescription(description);
         resource.setLocalisation(localisation);
-        resource.setResponsible(null);
-        resource.setType(null);
+        resource.setResponsible(responsible);
+        resource.setType(resourceType);
 
         resourceService.update(resource);
         return Response.status(Response.Status.OK)
