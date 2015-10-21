@@ -32,14 +32,16 @@ public class LoginFilter implements Filter {
         Cookie[] cookies = request.getCookies();
         if (cookies!=null) {
             for (Cookie ck : cookies) {
-                if (ck.getName().equals(Config.SESSION_ATTRIBUTE)) {
+                if (Config.SESSION_ATTRIBUTE.equals(ck.getName())) {
                     filterChain.doFilter(request, response);
+                    return;
                 }
             }
         }
-        response.setStatus(401);
-        request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request,response);
 
+        // user not logged in, redirect to the login page
+        response.setStatus(401);
+        request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request, response);
     }
 
     @Override

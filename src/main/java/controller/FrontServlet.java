@@ -1,10 +1,11 @@
 package controller;
 
 import config.Config;
-import model.Resource;
+import service.ReservationService;
 import service.ResourceService;
 import service.ResourceTypeService;
 import service.UserService;
+import service.impl.ReservationServiceImpl;
 import service.impl.ResourceServiceImpl;
 import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
@@ -28,6 +29,8 @@ public class FrontServlet extends HttpServlet {
         final UserService su = new UserServiceImpl();
         final ResourceService sr = new ResourceServiceImpl();
         final ResourceTypeService srt = new ResourceTypeServiceImpl();
+        final ReservationService rs = new ReservationServiceImpl();
+
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
@@ -47,6 +50,10 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("resourceTypes", srt.listAll());
                     req.setAttribute("page", "resourceTypes.jsp");
                     break;
+                case "/reservations":
+                    req.setAttribute("reservations", rs.listAll());
+                    req.setAttribute("page", "reservations.jsp");
+                    break;
                 case "/login":
                     req.setAttribute("page", "login.jsp");
                     break;
@@ -56,9 +63,5 @@ public class FrontServlet extends HttpServlet {
             }
             req.getRequestDispatcher("/template.jsp").forward(req, resp);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 }

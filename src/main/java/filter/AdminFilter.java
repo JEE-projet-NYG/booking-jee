@@ -31,17 +31,28 @@ public class AdminFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         Cookie[] cookies = request.getCookies();
-        for (Cookie ck : cookies) {
-            if (ck.getName().equals(Config.SESSION_ATTRIBUTE)) {
-                if (ck.getValue().equals(Config.SESSION_ADMIN)) {
-                    filterChain.doFilter(request, response);
+        if(cookies != null) {
+            for (Cookie ck : cookies) {
+                if (Config.SESSION_ATTRIBUTE.equals(ck.getName())) {
+                    if (Config.SESSION_ADMIN.equals(ck.getValue())) {
+                        filterChain.doFilter(request, response);
+                        return;
+                    } else if(Config.SESSION_USER.equals(ck.getValue())) {
+                        // TODO 'forbidden access'
+                        //response.sendRedirect(request.getContextPath() + Config.USER_URL);
+                        //request.getRequestDispatcher(request.getContextPath() + Config.USER_URL).forward(request,response);
+                    }
                 } else {
-                    request.getRequestDispatcher(request.getContextPath() + Config.USER_URL).forward(request,response);
+                    // TODO 'user not logged in'
+                    // response.sendRedirect(request.getContextPath() + Config.USER_URL);
+                    //request.getRequestDispatcher(request.getContextPath() + Config.LOGIN_URL).forward(request, response);
                 }
-            } else {
-                request.getRequestDispatcher(request.getContextPath() + Config.USER_URL).forward(request, response);
             }
         }
+
+        response.setStatus(401);
+        request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request, response);
+
     }
 
     @Override

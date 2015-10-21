@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class UserDao {
 
+    private UserDao() {
+        // static class
+    }
+
     public static UserDao getDAO() {
         return new UserDao();
     }

@@ -18,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User find(final String login) {
+        // FIXME make a DAO UserDao.getDAO().find(String login)
+        // bad performance if we list all the users from the database and then choose only the one we're interested in
         List<User> users = UserDao.getDAO().listAll();
         for (User u : users) {
             if (u.getLogin().equals(login)) {

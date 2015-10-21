@@ -19,27 +19,28 @@ import java.io.IOException;
 @WebServlet("/login")
 public class AuthenticationController extends HttpServlet{
 
+    @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
+        final String login = request.getParameter("login");
+        final String password = request.getParameter("password");
 
-        UserService userService = new UserServiceImpl();
-
-        User user = userService.find(login);
+        final UserService userService = new UserServiceImpl();
+        final User user = userService.find(login);
 
         if (user != null) {
-            if (user.getPassword().equals(password)) {
-                String session;
-                session = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
-                Cookie cookie = new Cookie(Config.SESSION_ATTRIBUTE, session);
+            if (password.equals(user.getPassword())) {
+                final String session = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
+                final Cookie cookie = new Cookie(Config.SESSION_ATTRIBUTE, session);
                 response.addCookie(cookie);
+                response.sendRedirect(request.getHeader("Referer")); // TODO avoid going back to login page but instead home page
+
+                return;
             }
         }
 
-        this.getServletContext().getRequestDispatcher("/"+Config.APP_NAME+"/").forward(request,response);
-
+        response.sendRedirect("/"+Config.APP_NAME+"/login");
     }
 
 }

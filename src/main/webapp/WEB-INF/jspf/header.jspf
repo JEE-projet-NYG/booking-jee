@@ -14,13 +14,14 @@
     <!-- Collection of nav links and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/">Accueil</a></li>
-            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/users">Utilisateurs</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/users">Users</a></li>
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/resources">Resources</a></li>
-            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/resourceTypes">Types Resources</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/resourceTypes">Resource Type</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservations">Reservations</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/logout">Déconnecter</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/logout">Logout</a></li>
         </ul>
     </div>
 </nav>
