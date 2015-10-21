@@ -1,7 +1,12 @@
 package controller;
 
 import config.Config;
+import model.Ressource;
+import service.RessourceService;
+import service.RessourceTypeService;
 import service.UserService;
+import service.impl.RessourceServiceImpl;
+import service.impl.RessourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
@@ -21,6 +26,8 @@ public class FrontServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String pathInfo = req.getPathInfo();
         final UserService su = new UserServiceImpl();
+        final RessourceService sr = new RessourceServiceImpl();
+        final RessourceTypeService srt = new RessourceTypeServiceImpl();
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
@@ -29,6 +36,14 @@ public class FrontServlet extends HttpServlet {
                 case "/users":
                     req.setAttribute("users", su.listAll());
                     req.setAttribute("page", "users.jsp");
+                    break;
+                case "/ressources":
+                    req.setAttribute("ressources", sr.listAll());
+                    req.setAttribute("page", "ressources.jsp");
+                    break;
+                case "/ressourceTypes":
+                    req.setAttribute("ressourceTypes", srt.listAll());
+                    req.setAttribute("page", "ressourceTypes.jsp");
                     break;
                 case "/login":
                     req.setAttribute("page", "login.jsp");

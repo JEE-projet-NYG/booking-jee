@@ -28,6 +28,9 @@
                 <jsp:include page="${requestScope.page}"/>
             </div>
 
+            <!-- MODALS -->
+            <%@ include file="WEB-INF/jspf/modals.jspf" %>
+
             <!-- MESSAGE -->
             <div class="row">
                 <%@ include file="WEB-INF/jspf/message.jspf" %>

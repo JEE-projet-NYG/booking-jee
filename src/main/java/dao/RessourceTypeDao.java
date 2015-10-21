@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * Created by ferrilata on 19/10/15.
  */
-public class RessourceTypeDAO {
+public class RessourceTypeDao {
 
-    public static RessourceTypeDAO getDAO() { return new RessourceTypeDAO(); }
+    public static RessourceTypeDao getDAO() { return new RessourceTypeDao(); }
 
     public RessourceType find(final Long id) { return Config.em.find(RessourceType.class, id); }
 
@@ -26,6 +26,20 @@ public class RessourceTypeDAO {
     public List<RessourceType> listAll() {
         final String displayAllQuery = "SELECT res FROM RessourceType res";
         TypedQuery e = Config.em.createQuery(displayAllQuery, RessourceType.class);
+        return e.getResultList();
+    }
+
+    /**
+     * Find an RessourceType by filtering on its firstname or lastname
+     *
+     * @param name the name you're looking for
+     * @return the list of users matching the filter
+     */
+    public List<RessourceType> list(final String name) {
+        final String displayAllByNameQuery = "Select usr " +
+                "from RessourceType usr " +
+                "where usr.name like '%" + name + "%'";
+        TypedQuery e = Config.em.createQuery(displayAllByNameQuery, RessourceType.class);
         return e.getResultList();
     }
 

@@ -1,0 +1,192 @@
+<!-- Create Modal -->
+<div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create a new user</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createUserForm" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="login">Login</label>
+                        <div class="col-md-4">
+                            <input id="login" name="login" type="text" placeholder="jdupont" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">Password</label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" type="password" placeholder="azerty" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastname">Lastname</label>
+                        <div class="col-md-4">
+                            <input id="lastname" name="lastname" type="text" placeholder="Dupont" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="firstname">Firstname</label>
+                        <div class="col-md-4">
+                            <input id="firstname" name="firstname" type="text" placeholder="Jean" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="mailAddress">Email</label>
+                        <div class="col-md-4">
+                            <input id="mailAddress" name="mailAddress" type="email" placeholder="jdupont@yopmail.fr" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="phoneNumber">Phone number</label>
+                        <div class="col-md-4">
+                            <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="0102030405" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="admin">Is admin</label>
+                        <div class="col-md-4">
+                            <input id="admin" name="admin" type="checkbox" class="input-md">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit the user</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="id">Id</label>
+                        <div class="col-md-4">
+                            <input id="id" name="id" type="text" class="form-control input-md" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="login">Login</label>
+                        <div class="col-md-4">
+                            <input id="login" name="login" type="text" placeholder="jdupont" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">Password</label>
+                        <div class="col-md-4">
+                            <input id="password" name="password" type="password" placeholder="azerty" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastname">Lastname</label>
+                        <div class="col-md-4">
+                            <input id="lastname" name="lastname" type="text" placeholder="Dupont" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="firstname">Firstname</label>
+                        <div class="col-md-4">
+                            <input id="firstname" name="firstname" type="text" placeholder="Jean" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="mailAddress">Email</label>
+                        <div class="col-md-4">
+                            <input id="mailAddress" name="mailAddress" type="email" placeholder="jdupont@yopmail.fr" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="phoneNumber">Phone number</label>
+                        <div class="col-md-4">
+                            <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="0102030405" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="admin">Is admin</label>
+                        <div class="col-md-4">
+                            <input id="admin" name="admin" type="checkbox" class="input-md">
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Alert when user has been successfully created -->
+<div class="modal fade autohide" id="alertCreateUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertCreateUserSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-success" role="alert">
+                    <span>
+                        <p>You've successfully created the user!</p>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- Alert when user deletion failed -->
+<div class="modal fade autohide" id="alertCreateUserFailure" tabindex="-1" role="dialog" aria-labelledby="alertCreateUserFailureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-danger" role="alert">
+                    <span>
+                        <p>Error occurred when creating this user, please try again later.</p>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- Alert when user has been successfully deleted -->
+<div class="modal fade autohide" id="alertDeleteUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertDeleteUserSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-success" role="alert">
+                    <span>
+                        <p>You've successfully deleted the user!</p>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- Alert when user deletion failed -->
+<div class="modal fade autohide" id="alertDeleteUserFailure" tabindex="-1" role="dialog" aria-labelledby="alertDeleteUserFailureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-danger" role="alert">
+                    <span>
+                        <p>Error occurred when deleting this user, please try again later.</p>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- Alert when user has been successfully edited -->
+<div class="modal fade autohide" id="alertEditUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertEditUserSuccessLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-success" role="alert">
+                    <span>
+                        <p>You've successfully edited the user!</p>
+                    </span>
+        </div>
+    </div>
+</div>
+
+<!-- Alert when user edition failed -->
+<div class="modal fade autohide" id="alertEditUserFailure" tabindex="-1" role="dialog" aria-labelledby="alerteditUserFailureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-danger" role="alert">
+                    <span>
+                        <p>Error occurred when editing this user, please try again later.</p>
+                    </span>
+        </div>
+    </div>
+</div>
