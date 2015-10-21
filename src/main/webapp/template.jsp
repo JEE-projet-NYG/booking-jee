@@ -14,19 +14,30 @@
     <body>
         <div class="container-fluid">
             <!-- HEADER -->
-            <%@ include file="WEB-INF/jspf/header.jspf" %>
+            <div class="row">
+                <%@ include file="WEB-INF/jspf/header.jspf" %>
+            </div>
 
             <!-- MENU -->
-            <%@ include file="WEB-INF/jspf/menu.jspf" %>
+            <div class="row">
+                <%@ include file="WEB-INF/jspf/menu.jspf" %>
+            </div>
 
             <!-- BODY -->
-            <jsp:include page="${requestScope.page}"/>
+            <div class="row">
+                <jsp:include page="${requestScope.page}"/>
+            </div>
 
             <!-- MESSAGE -->
-            <%@ include file="WEB-INF/jspf/message.jspf" %>
+            <div class="row">
+                <%@ include file="WEB-INF/jspf/message.jspf" %>
+            </div>
 
             <!-- FOOTER -->
-            <%@ include file="WEB-INF/jspf/footer.jspf" %>
+            <div class="row">
+                <%@ include file="WEB-INF/jspf/footer.jspf" %>
+            </div>
+
         </div>
     </body>
 
