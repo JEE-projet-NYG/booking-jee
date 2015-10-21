@@ -19,15 +19,15 @@ $( document ).ready(function() {
             $('#createUserModal').modal('hide'); // hide the report form
             $('#createUserForm')[0].reset(); // clear the report form
 
-            $('#alertCreateUserSuccess').modal('show');
-            $('#alertCreateUserSuccess').on('hidden.bs.modal', function () {
+            alertSuccess('Successfully created user.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             })
 
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            $('#alertCreateUserFail').modal('show');
+            alertFailure('An error occured when creating user.');
         });
     });
 
@@ -62,15 +62,15 @@ $( document ).ready(function() {
             $('#editUserModal').modal('hide'); // hide the report form
             $('#editUserForm')[0].reset(); // clear the report form
 
-            $('#alertEditUserSuccess').modal('show');
-            $('#alertEditUserSuccess').on('hidden.bs.modal', function () {
+            alertSuccess('Successfully edited user.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             })
 
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            $('#alertCreateUserFail').modal('show');
+            alertFailure('An error occured when editing user.');
         });
     });
 
@@ -87,12 +87,21 @@ $( document ).ready(function() {
 
         request.success(function (response, textStatus, jqXHR) {
             tr.remove();
-            $('#alertDeleteUserSuccess').modal('show');
+            alertSuccess('Succesfully deleted user.');
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            $('#alertDeleteUserFail').modal('show');
+            alertFailure('An error occured when deleting user.');
         });
     });
 });
 
+function alertSuccess(message){
+    $("#alertSuccess").find("p").text(message);
+    $("#alertSuccess").modal('show');
+}
+
+function alertFailure(message){
+    $("#alertFailure").find("p").text(message);
+    $("#alertFailure").modal('show');
+}

@@ -126,67 +126,23 @@
 
 
 <!-- Alert when user has been successfully created -->
-<div class="modal fade autohide" id="alertCreateUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertCreateUserSuccessLabel" aria-hidden="true">
+<div class="modal fade autohide" id="alertSuccess" tabindex="-1" role="dialog" aria-labelledby="alertSuccessLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="alert alert-success" role="alert">
-                    <span>
-                        <p>You've successfully created the user!</p>
-                    </span>
+            <span>
+                <p></p>
+            </span>
         </div>
     </div>
 </div>
 
 <!-- Alert when user deletion failed -->
-<div class="modal fade autohide" id="alertCreateUserFailure" tabindex="-1" role="dialog" aria-labelledby="alertCreateUserFailureLabel" aria-hidden="true">
+<div class="modal fade autohide" id="alertFailure" tabindex="-1" role="dialog" aria-labelledby="alertFailureLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="alert alert-danger" role="alert">
-                    <span>
-                        <p>Error occurred when creating this user, please try again later.</p>
-                    </span>
-        </div>
-    </div>
-</div>
-
-<!-- Alert when user has been successfully deleted -->
-<div class="modal fade autohide" id="alertDeleteUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertDeleteUserSuccessLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="alert alert-success" role="alert">
-                    <span>
-                        <p>You've successfully deleted the user!</p>
-                    </span>
-        </div>
-    </div>
-</div>
-
-<!-- Alert when user deletion failed -->
-<div class="modal fade autohide" id="alertDeleteUserFailure" tabindex="-1" role="dialog" aria-labelledby="alertDeleteUserFailureLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="alert alert-danger" role="alert">
-                    <span>
-                        <p>Error occurred when deleting this user, please try again later.</p>
-                    </span>
-        </div>
-    </div>
-</div>
-
-<!-- Alert when user has been successfully edited -->
-<div class="modal fade autohide" id="alertEditUserSuccess" tabindex="-1" role="dialog" aria-labelledby="alertEditUserSuccessLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="alert alert-success" role="alert">
-                    <span>
-                        <p>You've successfully edited the user!</p>
-                    </span>
-        </div>
-    </div>
-</div>
-
-<!-- Alert when user edition failed -->
-<div class="modal fade autohide" id="alertEditUserFailure" tabindex="-1" role="dialog" aria-labelledby="alerteditUserFailureLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="alert alert-danger" role="alert">
-                    <span>
-                        <p>Error occurred when editing this user, please try again later.</p>
-                    </span>
+            <span>
+                <p></p>
+            </span>
         </div>
     </div>
 </div>
