@@ -37,7 +37,7 @@ $( document ).ready(function() {
 
 
     /* When editing an user */
-    $("body").on("click", "a.edit", function(e) {
+    $("body").on("click", "#table-users td a.edit", function(e) {
         var tr = $(this).closest('tr');
 
         $('#editUserForm').find('[name="id"]').val(tr.find('.id').text());
@@ -127,7 +127,7 @@ $( document ).ready(function() {
 
 
     /* When editing an resource */
-    $("body").on("click", "a.edit", function(e) {
+    $("body").on("click", "#table-resources td a.edit", function(e) {
         var tr = $(this).closest('tr');
 
         $('#editResourceForm').find('[name="id"]').val(tr.find('.id').text());
