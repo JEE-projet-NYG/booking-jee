@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h1>ResourceTypes list</h1>
+<h1>ResourceTypes list <button type="button" class="btn btn-primary btn-circle btn-lg createResourceType"><i class="glyphicon glyphicon-plus"></i></button></h1>
 <table id="table-resourceTypes" class="table table-striped table-hover table-condensed">
     <tr>
         <td>Id</td>

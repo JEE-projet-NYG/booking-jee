@@ -11,6 +11,7 @@ INSERT INTO User (id, admin, firstname, lastname, login, mail_address, password,
 
 -- ResourceType
 INSERT INTO RESOURCETYPE (id, name) VALUES (1,'MEUBLE');
+INSERT INTO RESOURCETYPE (id, name) VALUES (2,'OUTILLAGE');
 
 -- Resources
 INSERT INTO RESOURCE (id, name, description, localisation, responsibleId, typeId) VALUES ('1', 'table', 'ceci est une table magnifique', 'salle B116', 1, 1);
