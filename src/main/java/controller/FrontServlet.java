@@ -38,7 +38,9 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("page", "users.jsp");
                     break;
                 case "/resources":
+                    req.setAttribute("users", su.listAll());
                     req.setAttribute("resources", sr.listAll());
+                    req.setAttribute("resourceTypes", srt.listAll());
                     req.setAttribute("page", "resources.jsp");
                     break;
                 case "/resourceTypes":
