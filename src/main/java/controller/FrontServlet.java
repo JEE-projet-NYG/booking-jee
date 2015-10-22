@@ -88,7 +88,7 @@ public class FrontServlet extends HttpServlet {
             try {
                 dateMin = format.parse(timePickerMin);
             } catch (ParseException e) {
-                e.printStackTrace();
+                // ne rien faire
             }
         }
 
@@ -97,7 +97,7 @@ public class FrontServlet extends HttpServlet {
             try {
                 dateMax = format.parse(timePickerMax);
             } catch (ParseException e) {
-                e.printStackTrace();
+                // ne rien faire
             }
         }
 

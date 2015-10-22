@@ -1,10 +1,12 @@
 package dao;
 
+import config.Config;
 import controller.EntityManagerUtils;
 import model.Reservation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -96,9 +98,9 @@ public class ReservationDao {
      */
     public List<Reservation> listInRange(Date dateMin, Date dateMax) {
         final String displayAllQuery = "Select rsr from Reservation rsr where (:dateMin IS NULL OR dateStart >= :dateMin) and (:dateMax IS NULL OR dateEnd <= :dateMax)";
-        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
-        query.setParameter("dateMin", dateMin);
-        query.setParameter("dateMax", dateMax);
-        return query.getResultList();
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
+        return e.getResultList();
     }
 }
