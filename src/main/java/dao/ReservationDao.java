@@ -1,10 +1,10 @@
 package dao;
 
-import config.Config;
+import controller.EntityManagerUtils;
 import model.Reservation;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ReservationDao {
      * @return the Reservation matching the id
      */
     public Reservation find(final Long id) {
-        return Config.em.find(Reservation.class, id);
+        return EntityManagerUtils.getEntityManager().find(Reservation.class, id);
     }
 
     /**
@@ -38,10 +38,11 @@ public class ReservationDao {
      * @param r the Reservation to create
      */
     public void create(Reservation r) {
-        EntityTransaction trx = Config.em.getTransaction();
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
         trx.begin();
 
-        Config.em.persist(r);
+        em.persist(r);
 
         trx.commit();
     }
@@ -52,10 +53,11 @@ public class ReservationDao {
      * @param r the Reservation to delete
      */
     public void delete(Reservation r) {
-        EntityTransaction trx = Config.em.getTransaction();
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
         trx.begin();
 
-        Config.em.remove(r);
+        em.remove(r);
 
         trx.commit();
     }
@@ -66,7 +68,13 @@ public class ReservationDao {
      * @param r the Reservation to update
      */
     public void update(Reservation r) {
-        Config.em.merge(r);
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
+        trx.begin();
+
+        em.merge(r);
+
+        trx.commit();
     }
 
     /**
@@ -76,8 +84,8 @@ public class ReservationDao {
      */
     public List<Reservation> listAll() {
         final String displayAllQuery = "Select rsr from Reservation rsr";
-        TypedQuery e = Config.em.createQuery(displayAllQuery, Reservation.class);
-        return e.getResultList();
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        return query.getResultList();
     }
 
     /**
@@ -88,9 +96,9 @@ public class ReservationDao {
      */
     public List<Reservation> listInRange(Date dateMin, Date dateMax) {
         final String displayAllQuery = "Select rsr from Reservation rsr where (:dateMin IS NULL OR dateStart >= :dateMin) and (:dateMax IS NULL OR dateEnd <= :dateMax)";
-        TypedQuery e = Config.em.createQuery(displayAllQuery, Reservation.class);
-        e.setParameter("dateMin", dateMin);
-        e.setParameter("dateMax", dateMax);
-        return e.getResultList();
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        query.setParameter("dateMin", dateMin);
+        query.setParameter("dateMax", dateMax);
+        return query.getResultList();
     }
 }

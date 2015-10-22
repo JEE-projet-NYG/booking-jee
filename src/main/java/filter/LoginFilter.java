@@ -12,9 +12,6 @@ import java.io.IOException;
 /**
  * Created by ferrilata on 21/10/15.
  */
-@WebFilter(urlPatterns = {"/",
-        "/"+Config.APP_NAME+"/",
-        "/"+Config.APP_NAME+"/reservation"})
 public class LoginFilter implements Filter {
 
     private FilterConfig filterConfig = null;

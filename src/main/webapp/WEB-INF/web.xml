@@ -15,4 +15,40 @@
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>filter.LoginFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filter.AdminFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>EntityManagerFilter</filter-name>
+        <filter-class>filter.EntityManagerFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>EntityManagerFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+        <url-pattern>/overbooking/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/overbooking/reservation</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/overbooking/users</url-pattern>
+        <url-pattern>/overbooking/resources</url-pattern>
+        <url-pattern>/overbooking/resourceTypes</url-pattern>
+        <url-pattern>/overbooking/reservations</url-pattern>
+    </filter-mapping>
+
 </web-app>

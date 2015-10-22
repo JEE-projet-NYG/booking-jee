@@ -1,8 +1,11 @@
 package dao;
 
 import config.Config;
+import controller.EntityManagerUtils;
 import model.ResourceType;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -13,20 +16,56 @@ public class ResourceTypeDao {
 
     public static ResourceTypeDao getDAO() { return new ResourceTypeDao(); }
 
-    public ResourceType find(final Long id) { return Config.em.find(ResourceType.class, id); }
+    public ResourceType find(final Long id) { return EntityManagerUtils.getEntityManager().find(ResourceType.class, id); }
 
-    public void create(ResourceType r) { Config.em.persist(r); }
+    public void create(ResourceType r) {
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
 
-    public void delete(ResourceType r) { Config.em.remove(r); }
+        trx.begin();
 
-    public void delete(final Long id) { Config.em.remove(this.find(id));}
+        em.persist(r);
 
-    public void update(ResourceType r) { Config.em.merge(r); }
+        trx.commit();
+    }
+
+    public void delete(ResourceType r) {
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
+
+        trx.begin();
+
+        em.remove(r);
+
+        trx.commit();
+    }
+
+    public void delete(final Long id) {
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
+
+        trx.begin();
+
+        em.persist(this.find(id));
+
+        trx.commit();
+    }
+
+    public void update(ResourceType r) {
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+        EntityTransaction trx = em.getTransaction();
+
+        trx.begin();
+
+        em.merge(r);
+
+        trx.commit();
+    }
 
     public List<ResourceType> listAll() {
         final String displayAllQuery = "SELECT res FROM ResourceType res";
-        TypedQuery e = Config.em.createQuery(displayAllQuery, ResourceType.class);
-        return e.getResultList();
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, ResourceType.class);
+        return query.getResultList();
     }
 
     /**
@@ -39,8 +78,8 @@ public class ResourceTypeDao {
         final String displayAllByNameQuery = "Select usr " +
                 "from ResourceType usr " +
                 "where usr.name like '%" + name + "%'";
-        TypedQuery e = Config.em.createQuery(displayAllByNameQuery, ResourceType.class);
-        return e.getResultList();
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllByNameQuery, ResourceType.class);
+        return query.getResultList();
     }
 
 }

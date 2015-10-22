@@ -5,8 +5,6 @@ import javax.persistence.Persistence;
 
 public class Config {
 
-    public static EntityManager em = Persistence.createEntityManagerFactory("rootUnit").createEntityManager();
-
     // attribute, visible to the scriptlet
     public static final String APP_NAME = "overbooking";
 
@@ -16,6 +14,8 @@ public class Config {
 
     public static final String LOGIN_URL = "/"+APP_NAME+"/login";
     public static final String USER_URL = "/"+APP_NAME+"/reservation";
+
+    public static final String PERSISTENCE_UNIT = "rootUnit";
 
     private Config() {
         // static class

@@ -1,8 +1,10 @@
 package dao;
 
 import config.Config;
+import controller.EntityManagerUtils;
 import model.User;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -27,7 +29,7 @@ public class UserDao {
      * @return the user matching the id
      */
     public User find(final Long id) {
-        return Config.em.find(User.class, id);
+        return EntityManagerUtils.getEntityManager().find(User.class, id);
     }
 
     /**
@@ -39,8 +41,10 @@ public class UserDao {
         final String findUserByLogin = "Select usr " +
                 "from User usr " +
                 "where usr.login = '" + login + "'";
-        TypedQuery e = Config.em.createQuery(findUserByLogin, User.class);
-        List<User> results = e.getResultList();
+
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(findUserByLogin, User.class);
+
+        List<User> results = query.getResultList();
 
         return (results != null && results.get(0) != null) ? results.get(0) : null;
     }
@@ -51,10 +55,12 @@ public class UserDao {
      * @param u the user to create
      */
     public void create(User u) {
-        EntityTransaction trx = Config.em.getTransaction();
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+
+        EntityTransaction trx = em.getTransaction();
         trx.begin();
 
-        Config.em.persist(u);
+        em.persist(u);
 
         trx.commit();
     }
@@ -65,10 +71,12 @@ public class UserDao {
      * @param u the user to delete
      */
     public void delete(User u) {
-        EntityTransaction trx = Config.em.getTransaction();
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+
+        EntityTransaction trx = em.getTransaction();
         trx.begin();
 
-        Config.em.remove(u);
+        em.remove(u);
 
         trx.commit();
     }
@@ -79,7 +87,14 @@ public class UserDao {
      * @param u the user to update
      */
     public void update(User u) {
-        Config.em.merge(u);
+        final EntityManager em = EntityManagerUtils.getEntityManager();
+
+        EntityTransaction trx = em.getTransaction();
+        trx.begin();
+
+        em.merge(u);
+
+        trx.commit();
     }
 
     /**
@@ -89,8 +104,10 @@ public class UserDao {
      */
     public List<User> listAll() {
         final String displayAllQuery = "Select usr from User usr";
-        TypedQuery e = Config.em.createQuery(displayAllQuery, User.class);
-        return e.getResultList();
+
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, User.class);
+
+        return query.getResultList();
     }
 
     /**
@@ -104,8 +121,9 @@ public class UserDao {
                 "from User usr " +
                 "where usr.firstname like '%" + name + "%'" +
                 "or usr.lastname like '%" + name + "%'";
-        TypedQuery e = Config.em.createQuery(displayAllByNameQuery, User.class);
-        return e.getResultList();
+        TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllByNameQuery, User.class);
+
+        return query.getResultList();
     }
 
 }

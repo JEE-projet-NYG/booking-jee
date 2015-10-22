@@ -25,10 +25,6 @@ public class UserController {
         final UserService userService = new UserServiceImpl();
         final User user = new User(login, password, lastname, firstname, mailAddress, phoneNumber, admin == null ? false : admin);
 
-        if(user == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
         userService.create(user);
         return Response.status(Response.Status.OK)
                 .entity("User " + user.getLogin() + " has been successfully created.")
@@ -61,7 +57,7 @@ public class UserController {
         user.setFirstname(firstname);
         user.setMailAddress(mailAddress);
         user.setPhoneNumber(phoneNumber);
-        user.setAdmin(admin);
+        user.setAdmin(admin == null ? false : admin);
 
         userService.update(user);
         return Response.status(Response.Status.OK)
