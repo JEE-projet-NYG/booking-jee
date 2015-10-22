@@ -13,7 +13,10 @@ import java.io.IOException;
 /**
  * Created by ferrilata on 21/10/15.
  */
-@WebFilter(urlPatterns = {"/"+Config.APP_NAME+"/users","/"+Config.APP_NAME+"/resources","/"+Config.APP_NAME+"/resourceTypes"})
+@WebFilter(urlPatterns = {"/"+Config.APP_NAME+"/users",
+        "/"+Config.APP_NAME+"/resources",
+        "/"+Config.APP_NAME+"/resourceTypes",
+        "/"+Config.APP_NAME+"/reservations"})
 public class AdminFilter implements Filter {
 
     private FilterConfig filterConfig = null;
@@ -50,7 +53,7 @@ public class AdminFilter implements Filter {
             }
         }
 
-        response.setStatus(401);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request, response);
 
     }

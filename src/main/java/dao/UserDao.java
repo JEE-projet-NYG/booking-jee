@@ -31,6 +31,21 @@ public class UserDao {
     }
 
     /**
+     * Find an user by its login
+     * @param login the login of the user
+     * @return the user matching the login
+     */
+    public User find(final String login) {
+        final String findUserByLogin = "Select usr " +
+                "from User usr " +
+                "where usr.login = '" + login + "'";
+        TypedQuery e = Config.em.createQuery(findUserByLogin, User.class);
+        List<User> results = e.getResultList();
+
+        return (results != null && results.get(0) != null) ? results.get(0) : null;
+    }
+
+    /**
      * Create an user
      *
      * @param u the user to create
