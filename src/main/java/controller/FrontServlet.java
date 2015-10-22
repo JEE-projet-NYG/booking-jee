@@ -1,6 +1,7 @@
 package controller;
 
 import config.Config;
+import model.Reservation;
 import service.ReservationService;
 import service.ResourceService;
 import service.ResourceTypeService;
@@ -16,6 +17,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Servlet Dispatcher effectuant le routage vers la JSP cible
@@ -23,13 +29,18 @@ import java.io.IOException;
 @WebServlet("/" + Config.APP_NAME + "/*")
 public class FrontServlet extends HttpServlet {
 
+    private UserService su;
+    private ResourceService sr;
+    private ResourceTypeService srt;
+    private ReservationService rs;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String pathInfo = req.getPathInfo();
-        final UserService su = new UserServiceImpl();
-        final ResourceService sr = new ResourceServiceImpl();
-        final ResourceTypeService srt = new ResourceTypeServiceImpl();
-        final ReservationService rs = new ReservationServiceImpl();
+        su = new UserServiceImpl();
+        sr = new ResourceServiceImpl();
+        srt = new ResourceTypeServiceImpl();
+        rs = new ReservationServiceImpl();
 
         if (pathInfo != null) {
             switch (pathInfo) {
@@ -51,7 +62,8 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("page", "resourceTypes.jsp");
                     break;
                 case "/reservations":
-                    req.setAttribute("reservations", rs.listAll());
+                    List<Reservation> reservations = listUsersByDate(req);
+                    req.setAttribute("reservations", reservations);
                     req.setAttribute("page", "reservations.jsp");
                     break;
                 case "/login":
@@ -63,5 +75,32 @@ public class FrontServlet extends HttpServlet {
             }
             req.getRequestDispatcher("/template.jsp").forward(req, resp);
         }
+    }
+
+    private List<Reservation> listUsersByDate(HttpServletRequest req) {
+        String timePickerMin = req.getParameter("timePickerMin");
+        String timePickerMax = req.getParameter("timePickerMax");
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        Date dateMin = null;
+        if(timePickerMin != null) {
+            try {
+                dateMin = format.parse(timePickerMin);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Date dateMax = null;
+        if(timePickerMax != null) {
+            try {
+                dateMax = format.parse(timePickerMax);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return rs.listInRange(dateMin, dateMax);
     }
 }

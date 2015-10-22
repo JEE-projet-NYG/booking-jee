@@ -4,6 +4,7 @@ import dao.ReservationDao;
 import model.Reservation;
 import service.ReservationService;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,4 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> listAll() {
         return ReservationDao.getDAO().listAll();
     }
+
+    @Override
+    public List<Reservation> listInRange(Date dateMin, Date dateMax) { return ReservationDao.getDAO().listInRange(dateMin, dateMax); }
 }

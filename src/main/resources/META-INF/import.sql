@@ -17,4 +17,5 @@ INSERT INTO RESOURCETYPE (id, name) VALUES (2,'OUTILLAGE');
 INSERT INTO RESOURCE (id, name, description, localisation, responsibleId, typeId) VALUES ('1', 'table', 'ceci est une table magnifique', 'salle B116', 1, 1);
 
 -- Réservations
-INSERT INTO Reservation (id, date_start, date_end, borrowerId, resourceId) VALUES (1, PARSEDATETIME('2015/10/21 12:05:00', 'yyyy/MM/dd HH:mm:ss'), PARSEDATETIME('2015/10/30 12:05:00', 'yyyy/MM/dd HH:mm:ss'), 5, 1);
+INSERT INTO Reservation (id, date_start, date_end, borrowerId, resourceId) VALUES (1, PARSEDATETIME('2015/10/22 12:05:00', 'yyyy/MM/dd HH:mm:ss'), PARSEDATETIME('2015/10/30 12:05:00', 'yyyy/MM/dd HH:mm:ss'), 5, 1);
+INSERT INTO Reservation (id, date_start, date_end, borrowerId, resourceId) VALUES (2, PARSEDATETIME('2015/09/20 12:05:00', 'yyyy/MM/dd HH:mm:ss'), PARSEDATETIME('2015/11/05 12:05:00', 'yyyy/MM/dd HH:mm:ss'), 2, 1);

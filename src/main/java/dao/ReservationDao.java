@@ -4,7 +4,9 @@ import config.Config;
 import model.Reservation;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,6 +77,20 @@ public class ReservationDao {
     public List<Reservation> listAll() {
         final String displayAllQuery = "Select rsr from Reservation rsr";
         TypedQuery e = Config.em.createQuery(displayAllQuery, Reservation.class);
+        return e.getResultList();
+    }
+
+    /**
+     * Find all the reservations in a date range
+     * @param dateMin minimum date (included) - can be null
+     * @param dateMax maximum date (included) - can be null
+     * @return all the reservations in the range
+     */
+    public List<Reservation> listInRange(Date dateMin, Date dateMax) {
+        final String displayAllQuery = "Select rsr from Reservation rsr where (:dateMin IS NULL OR dateStart >= :dateMin) and (:dateMax IS NULL OR dateEnd <= :dateMax)";
+        TypedQuery e = Config.em.createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
         return e.getResultList();
     }
 }

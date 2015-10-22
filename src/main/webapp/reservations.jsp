@@ -5,11 +5,14 @@
 
 <script>
     $(function() {
-        $('#datetimepicker').datetimepicker();
+        $('#timePickerMin').datetimepicker({ format: 'Y-m-d H:i' });
+        $('#timePickerMax').datetimepicker({ format: 'Y-m-d H:i' });
     });
 </script>
 
-<p>Date: <input type="text" id="datetimepicker"></p>
+<form >
+    <p>Du : <input type="text" name="timePickerMin" id="timePickerMin" value="${pageContext.request.getParameter("timePickerMin")}"> Au : <input type="text" name="timePickerMax" id="timePickerMax" value="${pageContext.request.getParameter("timePickerMax")}"> <button type="submit" class="btn btn-default">Rechercher</button></p>
+</form>
 
 
 <table id="table-reservations" class="table table-striped table-hover table-condensed">

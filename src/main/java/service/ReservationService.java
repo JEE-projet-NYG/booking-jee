@@ -2,6 +2,7 @@ package service;
 
 import model.Reservation;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,4 +46,11 @@ public interface ReservationService {
      */
     List<Reservation> listAll();
 
+    /**
+     * Find all the reservations in a date range
+     * @param dateMin minimum date (included)
+     * @param dateMax maximum date (included)
+     * @return all the reservations in the range
+     */
+    List<Reservation> listInRange(Date dateMin, Date dateMax);
 }
