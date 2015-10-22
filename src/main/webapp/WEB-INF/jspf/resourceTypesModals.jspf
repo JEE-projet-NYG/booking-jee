@@ -1,0 +1,54 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- Create ResourceType Modal -->
+<div class="modal fade" id="createResourceTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create a new resourceType</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createResourceTypeForm" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name">Name</label>
+                        <div class="col-md-4">
+                            <input id="name" name="name" type="text" placeholder="chaise" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit ResourceTypeType Modal -->
+<div class="modal fade" id="editResourceTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit the resourceType type</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editResourceTypeForm" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="id">Id</label>
+                        <div class="col-md-4">
+                            <input id="id" name="id" type="text" class="form-control input-md" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="name">Name</label>
+                        <div class="col-md-4">
+                            <input id="name" name="name" type="text" placeholder="chaise" class="form-control input-md" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

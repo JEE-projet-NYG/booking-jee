@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="WEB-INF/jspf/usersModals.jspf" %>
 <h1>Users list <button type="button" class="btn btn-primary btn-circle btn-lg createUser"><i class="glyphicon glyphicon-plus"></i></button>
 </h1>
 <table id="table-users" class="table table-striped table-hover table-condensed">

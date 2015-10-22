@@ -9,6 +9,9 @@ $( document ).ready(function() {
         $('#createResourceModal').modal('show');
     });
 
+    $("body").on("click", "button.createResourceType", function(e) {
+        $('#createResourceTypeModal').modal('show');
+    });
 
     $('#createUserForm').on('submit', function(e){
         e.preventDefault();
@@ -27,7 +30,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully created user.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -70,7 +73,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully edited user.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -117,7 +120,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully created resource.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -156,16 +159,16 @@ $( document ).ready(function() {
             alertSuccess('Successfully edited resource.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when editing resource.');
+            alertFailure('An error occured when editing Resource.');
         });
     });
 
-    /* When deleting an resource */
+    /* When deleting an Resource */
     $("body").on("click", "#table-resources td a.delete", function(e) {
 
         var tr = $(this).closest('tr');
@@ -185,15 +188,98 @@ $( document ).ready(function() {
             alertFailure('An error occured when deleting resource.');
         });
     });
-    
+
+    $('#createResourceTypeForm').on('submit', function(e){
+        alert("test");
+        e.preventDefault();
+        var form = $('#createResourceTypeForm').serialize();
+
+        var request = $.ajax({
+            url: "/api/resourceTypes/",
+            type: "put",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#createResourceTypeModal').modal('hide'); // hide the report form
+            $('#createResourceTypeForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully created ResourceType.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            });
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when creating ResourceType.');
+        });
+    });
+
+    /* When editing an ResourceType */
+    $("body").on("click", "#table-resourceTypes td a.edit", function(e) {
+        var tr = $(this).closest('tr');
+
+        $('#editResourceTypeForm').find('[name="id"]').val(tr.find('.id').text());
+        $('#editResourceTypeForm').find('[name="name"]').val(tr.find('.name').text());
+
+        $('#editResourceTypeModal').modal('show');
+    });
+
+    $('#editResourceTypeForm').on('submit', function(e){
+        e.preventDefault();
+
+        var form = $('#editResourceTypeForm').serialize();
+        var request = $.ajax({
+            url: "/api/resourceTypes/",
+            type: "post",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#editResourceTypeModal').modal('hide'); // hide the report form
+            $('#editResourceTypeForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully edited ResourceType.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            });
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when editing ResourceType.');
+        });
+    });
+
+    /* When deleting an ResourceType */
+    $("body").on("click", "#table-resourceTypes td a.delete", function(e) {
+
+        var tr = $(this).closest('tr');
+        var id = tr.find('.id').text();
+
+        var request = $.ajax({
+            url: "/api/resourceTypes/"+id,
+            type: "delete"
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            tr.remove();
+            alertSuccess('Succesfully deleted ResourceType.');
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when deleting ResourceType.');
+        });
+    });
+
+    function alertSuccess(message){
+        $("#alertSuccess").find("p").text(message);
+        $("#alertSuccess").modal('show');
+    }
+
+    function alertFailure(message) {
+        $("#alertFailure").find("p").text(message);
+        $("#alertFailure").modal('show');
+    }
 });
-
-function alertSuccess(message){
-    $("#alertSuccess").find("p").text(message);
-    $("#alertSuccess").modal('show');
-}
-
-function alertFailure(message){
-    $("#alertFailure").find("p").text(message);
-    $("#alertFailure").modal('show');
-}
