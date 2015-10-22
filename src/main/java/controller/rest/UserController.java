@@ -1,9 +1,10 @@
-package controller;
+package controller.rest;
 import model.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
 @Path("/users")
@@ -16,7 +17,10 @@ public class UserController {
                                @FormParam("firstname") final String firstname,
                                @FormParam("mailAddress") final String mailAddress,
                                @FormParam("phoneNumber") final String phoneNumber,
-                               @FormParam("admin") final Boolean admin) {
+                               @FormParam("admin") final Boolean admin,
+                               @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final UserService userService = new UserServiceImpl();
         final User user = new User(login, password, lastname, firstname, mailAddress, phoneNumber, admin == null ? false : admin);
@@ -39,7 +43,10 @@ public class UserController {
                              @FormParam("firstname") final String firstname,
                              @FormParam("mailAddress") final String mailAddress,
                              @FormParam("phoneNumber") final String phoneNumber,
-                             @FormParam("admin") final Boolean admin) {
+                             @FormParam("admin") final Boolean admin,
+                             @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final UserService userService = new UserServiceImpl();
         final User user = userService.find(id);
@@ -64,7 +71,11 @@ public class UserController {
 
     @DELETE
     @Path("{id}")
-    public Response deleteUser(@PathParam("id") Long id) {
+    public Response deleteUser(@PathParam("id") Long id,
+                               @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+
         final UserService userService = new UserServiceImpl();
         final User user = userService.find(id);
 
@@ -76,5 +87,4 @@ public class UserController {
         return Response.status(Response.Status.OK)
                 .entity("User " + user.getLogin() + " has been successfully deleted.").build();
     }
-
 }

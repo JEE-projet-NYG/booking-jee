@@ -1,4 +1,4 @@
-package controller;
+package controller.rest;
 import model.Resource;
 import model.ResourceType;
 import model.User;
@@ -10,6 +10,7 @@ import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
 @Path("/resources")
@@ -20,7 +21,11 @@ public class ResourceController {
                                    @FormParam("description") final String description,
                                    @FormParam("localisation") final String localisation,
                                    @FormParam("responsibleId") final Long responsibleId,
-                                   @FormParam("resourceTypeId") final Long typeId) {
+                                   @FormParam("resourceTypeId") final Long typeId,
+                                   @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+
 
         final UserService userService = new UserServiceImpl();
         final ResourceService resourceService = new ResourceServiceImpl();
@@ -46,11 +51,14 @@ public class ResourceController {
 
     @POST
     public Response editResource(@FormParam("id") final Long id,
-                                  @FormParam("name") final String name,
-                                  @FormParam("description") final String description,
-                                  @FormParam("localisation") final String localisation,
-                                  @FormParam("responsibleId") final Long responsibleId,
-                                  @FormParam("resourceTypeId") final Long typeId) {
+                                 @FormParam("name") final String name,
+                                 @FormParam("description") final String description,
+                                 @FormParam("localisation") final String localisation,
+                                 @FormParam("responsibleId") final Long responsibleId,
+                                 @FormParam("resourceTypeId") final Long typeId,
+                                 @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final ResourceService resourceService = new ResourceServiceImpl();
         final Resource resource = resourceService.find(id);
@@ -85,7 +93,11 @@ public class ResourceController {
 
     @DELETE
     @Path("{id}")
-    public Response deleteResource(@PathParam("id") Long id) {
+    public Response deleteResource(@PathParam("id") Long id,
+                                   @CookieParam("session") Cookie cookieRole) {
+
+        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+
         final ResourceService resourceService = new ResourceServiceImpl();
         final Resource resource = resourceService.find(id);
 
