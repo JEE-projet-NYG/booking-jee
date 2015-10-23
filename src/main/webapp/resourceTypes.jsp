@@ -13,8 +13,8 @@
         <tr>
             <td class="id">${resourceType.id}</td>
             <td class="name">${resourceType.name}</td>
-            <td><a class="editResourceType" href="#"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td><a class="deleteResourceType" href="#"><i class="glyphicon glyphicon-trash"></i></a></td>
+            <td><a class="edit" href="#"><i class="glyphicon glyphicon-pencil"></i></a></td>
+            <td><a class="delete" href="#"><i class="glyphicon glyphicon-trash"></i></a></td>
         </tr>
     </c:forEach>
 </table>
