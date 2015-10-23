@@ -15,12 +15,14 @@
     </tr>
     <c:forEach var="resource" items="${requestScope.resources}">
         <tr>
+            <input name="responsibleId" name="responsibleId" type="hidden" value="${resource.responsible.id}"/>
+            <input name="resourceTypeId" name="resourceTypeId" type="hidden" value="${resource.type.id}"/>
             <td class="id">${resource.id}</td>
-            <td>${resource.name}</td>
-            <td>${resource.description}</td>
-            <td>${resource.localisation}</td>
-            <td>${resource.responsible.lastname} ${resource.responsible.firstname}</td>
-            <td>${resource.type.name}</td>
+            <td class="name">${resource.name}</td>
+            <td class="description">${resource.description}</td>
+            <td class="localisation">${resource.localisation}</td>
+            <td class="responsible">${resource.responsible.login}</td>
+            <td class="resourceType">${resource.type.name}</td>
             <td><a class="edit" href="#"><i class="glyphicon glyphicon-pencil"></i></a></td>
             <td><a class="delete" href="#"><i class="glyphicon glyphicon-trash"></i></a></td>
         </tr>

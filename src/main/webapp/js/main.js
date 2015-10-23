@@ -134,10 +134,16 @@ $( document ).ready(function() {
     $("body").on("click", "#table-resources td a.edit", function(e) {
         var tr = $(this).closest('tr');
 
+        var responsibleId = tr.find('[name=responsibleId]').val();
+        var resourceTypeId = tr.find('[name=resourceTypeId]').val();
+
         $('#editResourceForm').find('[name="id"]').val(tr.find('.id').text());
         $('#editResourceForm').find('[name="name"]').val(tr.find('.name').text());
         $('#editResourceForm').find('[name="description"]').val(tr.find('.description').text());
         $('#editResourceForm').find('[name="localisation"]').val(tr.find('.localisation').text());
+
+        $('#editResourceForm').find('#responsibleId').val(responsibleId);
+        $('#editResourceForm').find('#resourceTypeId').val(resourceTypeId);
 
         $('#editResourceModal').modal('show');
     });
