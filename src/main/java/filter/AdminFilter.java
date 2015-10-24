@@ -39,21 +39,20 @@ public class AdminFilter implements Filter {
                         filterChain.doFilter(request, response);
                         return;
                     } else if(Config.SESSION_USER.equals(ck.getValue())) {
-                        // TODO 'forbidden access'
-                        //response.sendRedirect(request.getContextPath() + Config.USER_URL);
-                        //request.getRequestDispatcher(request.getContextPath() + Config.USER_URL).forward(request,response);
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        request.getRequestDispatcher(request.getContextPath() + Config.USER_URL).forward(request,response);
+                        return;
                     }
                 } else {
-                    // TODO 'user not logged in'
-                    // response.sendRedirect(request.getContextPath() + Config.USER_URL);
-                    //request.getRequestDispatcher(request.getContextPath() + Config.LOGIN_URL).forward(request, response);
+                    request.getRequestDispatcher(request.getContextPath() + Config.LOGIN_URL).forward(request, response);
+                    return;
                 }
             }
         }
 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request, response);
-
+        return;
     }
 
     @Override

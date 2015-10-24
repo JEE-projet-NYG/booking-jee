@@ -10,6 +10,21 @@ $( document ).ready(function() {
     });
 
 
+    $('#logout').on('click', function(e){
+        var request = $.ajax({
+            url: "/login",
+            type: "get"
+        });
+
+        request.success(function (response, status, xhr) {
+            console.log("User successfully logged out");
+        });
+
+        request.fail(function(xhr, status, error){
+            console.log("Error : status : "+status+" Body : "+error);
+        });
+    });
+
     $('#createUserForm').on('submit', function(e){
         e.preventDefault();
         var form = $('#createUserForm').serialize().replace("admin=on", "admin=true");

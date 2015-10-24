@@ -40,6 +40,8 @@
 
     <filter-mapping>
         <filter-name>LoginFilter</filter-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/overbooking/</url-pattern>
         <url-pattern>/overbooking/reservation</url-pattern>
     </filter-mapping>
 

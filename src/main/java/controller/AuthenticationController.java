@@ -5,13 +5,11 @@ import model.User;
 import service.UserService;
 import service.impl.UserServiceImpl;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+
 
 /**
  * Created by ferrilata on 21/10/15.
@@ -34,13 +32,21 @@ public class AuthenticationController extends HttpServlet{
                 final String session = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
                 final Cookie cookie = new Cookie(Config.SESSION_ATTRIBUTE, session);
                 response.addCookie(cookie);
-                response.sendRedirect(request.getHeader("Referer")); // TODO avoid going back to login page but instead home page
-
+                response.sendRedirect("/"+Config.APP_NAME+"/");
                 return;
             }
         }
-
-        response.sendRedirect("/"+Config.APP_NAME+"/login");
+        response.sendRedirect(Config.LOGIN_URL);
+        return;
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("ok");
+        final Cookie cookie = new Cookie(Config.SESSION_ATTRIBUTE,"");
+        cookie.setMaxAge(0);
+        resp.addCookie(cookie);
+        resp.sendRedirect(Config.LOGIN_URL);
+        return;
+    }
 }

@@ -3,7 +3,6 @@ package filter;
 import config.Config;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +39,7 @@ public class LoginFilter implements Filter {
 
         // user not logged in, redirect to the login page
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        request.getRequestDispatcher("/"+Config.APP_NAME+"/login").forward(request, response);
+        request.getRequestDispatcher(Config.LOGIN_URL).forward(request, response);
     }
 
     @Override
