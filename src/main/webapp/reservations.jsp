@@ -33,7 +33,7 @@
                 <fmt:formatDate value="${reservation.dateEnd}" type="date" pattern="yyyy-MM-dd HH:mm" />
             </td>
             <td class="borrower">${reservation.borrower.login}</td>
-            <td class="ressource">${reservation.ressource.name}</td>
+            <td class="resource">${reservation.resource.name}</td>
         </tr>
     </c:forEach>
 </table>

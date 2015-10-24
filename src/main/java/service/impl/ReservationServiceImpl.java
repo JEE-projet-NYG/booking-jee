@@ -2,6 +2,7 @@ package service.impl;
 
 import dao.ReservationDao;
 import model.Reservation;
+import model.Resource;
 import service.ReservationService;
 
 import java.util.Date;
@@ -40,7 +41,15 @@ public class ReservationServiceImpl implements ReservationService {
     public List<Reservation> listInRange(Date dateMin, Date dateMax) { return ReservationDao.getDAO().listInRange(dateMin, dateMax); }
 
     @Override
+    public List<Reservation> listInRange(Resource resource, Date dateMin, Date dateMax) { return ReservationDao.getDAO().listInRange(resource, dateMin, dateMax); }
+
+    @Override
     public List<Reservation> listByLogin(String login) {
         return ReservationDao.getDAO().listByLogin(login);
+    }
+
+    @Override
+    public boolean canBook(Resource resource, Date dateStart, Date dateEnd) {
+        return ReservationDao.getDAO().listInRange(resource, dateStart, dateEnd).isEmpty();
     }
 }

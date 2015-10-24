@@ -30,7 +30,7 @@ public class Reservation {
 
     @OneToOne
     @JoinColumn(name = "resourceId")
-    private Resource ressource;
+    private Resource resource;
 
     public Reservation() {
     }
@@ -67,12 +67,12 @@ public class Reservation {
         this.borrower = borrower;
     }
 
-    public Resource getRessource() {
-        return ressource;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setRessource(Resource ressource) {
-        this.ressource = ressource;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 }
 

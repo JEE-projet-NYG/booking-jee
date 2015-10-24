@@ -21,8 +21,8 @@
             <td class=dateEnd">
                 <fmt:formatDate value="${reservation.dateEnd}" type="date" pattern="yyyy-MM-dd HH:mm" />
             </td>
-            <td class="ressource">${reservation.ressource.name}</td>
-            <td class="ressourceType">${reservation.ressource.type.name}</td>
+            <td class="resource">${reservation.resource.name}</td>
+            <td class="resourceType">${reservation.resource.type.name}</td>
             <td><a class="cancel" href="#"><i class="glyphicon glyphicon-remove-circle"></i></a></td>
         </tr>
     </c:forEach>

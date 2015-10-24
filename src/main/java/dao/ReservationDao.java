@@ -3,6 +3,7 @@ package dao;
 import config.Config;
 import controller.EntityManagerUtils;
 import model.Reservation;
+import model.Resource;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -97,8 +98,32 @@ public class ReservationDao {
      * @return all the reservations in the range
      */
     public List<Reservation> listInRange(Date dateMin, Date dateMax) {
-        final String displayAllQuery = "Select rsr from Reservation rsr where (:dateMin IS NULL OR dateStart >= :dateMin) and (:dateMax IS NULL OR dateEnd <= :dateMax)";
+        final String displayAllQuery = "Select rsr " +
+                "from Reservation rsr " +
+                "where " +
+                "((:dateMin IS NOT NULL AND :dateMax IS NOT NULL) AND ((:dateMax >= dateStart) and (dateEnd >= :dateMin))) OR " +
+                "((:dateMin IS     NULL AND :dateMax IS NOT NULL) AND (:dateMax >= dateStart)) OR " +
+                "((:dateMin IS NOT NULL AND :dateMax IS     NULL) AND (dateEnd >= :dateMin)) OR " +
+                "(:dateMin IS     NULL AND :dateMax IS     NULL)";
         TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
+        return e.getResultList();
+    }
+
+    /**
+     * Find all the reservations of a resource in a date range
+     * @param resource resource of the reservations
+     * @param dateMin minimum date (included) - can be null
+     * @param dateMax maximum date (included) - can be null
+     * @return all the reservations in the range
+     */
+    public List<Reservation> listInRange(Resource resource, Date dateMin, Date dateMax) {
+        final String displayAllQuery = "Select rsr " +
+                "from Reservation rsr " +
+                "where (rsr.resource.id = :resourceId) and (:dateMax >= dateStart) and (dateEnd >= :dateMin)";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("resourceId", resource.getId());
         e.setParameter("dateMin", dateMin);
         e.setParameter("dateMax", dateMax);
         return e.getResultList();
