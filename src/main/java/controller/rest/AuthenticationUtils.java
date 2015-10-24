@@ -21,7 +21,6 @@ public class AuthenticationUtils {
     public static boolean isAdmin(HttpSession session) {
         final String roleValue = (String) session.getAttribute("session");
 
-        //return Config.SESSION_ADMIN.equals(roleValue); // TODO remettre l'implémentation après le dev de NGI
-        return true;
+        return Config.SESSION_ADMIN.equals(roleValue);
     }
 }
