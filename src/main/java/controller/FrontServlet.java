@@ -66,6 +66,12 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("reservations", reservations);
                     req.setAttribute("page", "reservations.jsp");
                     break;
+                case "/myReservations":
+                    final String login = (String) req.getSession().getAttribute("login");
+                    List<Reservation> myReservations = rs.listByLogin("ngimenez"); // TODO reboucher le bouchon
+                    req.setAttribute("reservations", myReservations);
+                    req.setAttribute("page", "myReservations.jsp");
+                    break;
                 case "/login":
                     req.setAttribute("page", "login.jsp");
                     break;

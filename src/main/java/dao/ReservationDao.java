@@ -103,4 +103,16 @@ public class ReservationDao {
         e.setParameter("dateMax", dateMax);
         return e.getResultList();
     }
+
+    /**
+     * Find all the reservations for the specified user
+     * @param login the login of the user
+     * @return all the reservations of the user
+     */
+    public List<Reservation> listByLogin(String login) {
+        final String displayAllByLogin = "Select rsr from Reservation rsr where borrower.login = :login";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllByLogin, Reservation.class);
+        e.setParameter("login", login);
+        return e.getResultList();
+    }
 }

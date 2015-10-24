@@ -5,10 +5,12 @@ $( document ).ready(function() {
         $('#createUserModal').modal('show');
     });
 
+    /* When creating a resource */
     $("body").on("click", "button.createResource", function(e) {
         $('#createResourceModal').modal('show');
     });
 
+    /* When creating a resource type */
     $("body").on("click", "button.createResourceType", function(e) {
         $('#createResourceTypeModal').modal('show');
     });
@@ -277,6 +279,29 @@ $( document ).ready(function() {
         request.fail(function (jqXHR, textStatus, errorThrown) {
             alertFailure('An error occured when deleting ResourceType.');
         });
+    });
+
+    /* When canceling a reservation */
+    $("body").on("click", "#table-reservations td a.cancel", function(e) {
+        var tr = $(this).closest('tr');
+
+        var id = tr.find('[name=id]').val();
+
+        var request = $.ajax({ // TODO a intégrer avec l'implémentation backend de NGI
+            url: "/api/reservations/cancel/",
+            type: "post",
+            data: id
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            tr.remove();
+            alertSuccess('Successfully canceled the reservation.');
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occurred when canceling the reservation.');
+        });
+
     });
 
     function alertSuccess(message){

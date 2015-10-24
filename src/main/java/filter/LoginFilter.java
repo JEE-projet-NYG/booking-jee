@@ -28,6 +28,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
+        /* FIXME stockage du rôle de l'utilisateur au niveau de la session plutot que sur un cookie - filters à adapter donc */
         Cookie[] cookies = request.getCookies();
         if (cookies!=null) {
             for (Cookie ck : cookies) {

@@ -3,7 +3,9 @@ import model.ResourceType;
 import service.ResourceTypeService;
 import service.impl.ResourceTypeServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
@@ -12,9 +14,9 @@ public class ResourceTypeController {
 
     @PUT
     public Response createResourceType(@FormParam("name") final String name,
-                                       @CookieParam("session") Cookie cookieRole) {
+                                       @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         ResourceTypeService resourceTypeService = new ResourceTypeServiceImpl();
 
@@ -29,9 +31,9 @@ public class ResourceTypeController {
     @POST
     public Response editResourceType(@FormParam("id") final Long id,
                                      @FormParam("name") final String name,
-                                     @CookieParam("session")     Cookie cookieRole) {
+                                     @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final ResourceTypeService resourceTypeService = new ResourceTypeServiceImpl();
         final ResourceType resourceType = resourceTypeService.find(id);
@@ -51,9 +53,9 @@ public class ResourceTypeController {
     @DELETE
     @Path("{id}")
     public Response deleteResourceType(@PathParam("id") Long id,
-                                       @CookieParam("session") Cookie cookieRole) {
+                                       @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final ResourceTypeService resourceTypeService = new ResourceTypeServiceImpl();
         final ResourceType resourceType = resourceTypeService.find(id);

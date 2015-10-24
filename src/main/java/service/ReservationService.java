@@ -53,4 +53,11 @@ public interface ReservationService {
      * @return all the reservations in the range
      */
     List<Reservation> listInRange(Date dateMin, Date dateMax);
+
+    /**
+     * Find all the reservations for the specified user
+     * @param login the login of the user
+     * @return all the reservations of the user
+     */
+    List<Reservation> listByLogin(String login);
 }

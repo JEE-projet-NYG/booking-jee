@@ -30,7 +30,7 @@ public class AuthenticationController extends HttpServlet{
         final User user = userService.find(login);
 
         if (user != null) {
-            if (password.equals(user.getPassword())) {
+            if (password.equals(user.getPassword())) { // FIXME on part plutot sur un stockage en session plutot que sur un cookie modifiable par un utilisateur avancé
                 final String session = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
                 final Cookie cookie = new Cookie(Config.SESSION_ATTRIBUTE, session);
                 response.addCookie(cookie);

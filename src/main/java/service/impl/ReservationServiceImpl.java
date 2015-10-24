@@ -38,4 +38,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Reservation> listInRange(Date dateMin, Date dateMax) { return ReservationDao.getDAO().listInRange(dateMin, dateMax); }
+
+    @Override
+    public List<Reservation> listByLogin(String login) {
+        return ReservationDao.getDAO().listByLogin(login);
+    }
 }
