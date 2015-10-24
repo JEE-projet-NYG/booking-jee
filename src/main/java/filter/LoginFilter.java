@@ -1,6 +1,7 @@
 package filter;
 
 import config.Config;
+import controller.rest.AuthenticationUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -29,19 +30,14 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession();
-        try {
-            if (session.getAttribute(Config.SESSION_ATTRIBUTE) != null) {
-                filterChain.doFilter(request, response);
-                return;
-            }
-            // user not logged in, redirect to the login page
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect(Config.LOGIN_URL);
-        } catch (IllegalStateException e) {
-            // user not logged in, redirect to the login page
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect(Config.LOGIN_URL);
+        if (AuthenticationUtils.userIsPresent(session)) {
+            filterChain.doFilter(request, response);
+            return;
         }
+        // user not logged in, redirect to the login page
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.sendRedirect(Config.LOGIN_URL);
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package filter;
 
 import config.Config;
+import controller.rest.AuthenticationUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -32,26 +33,19 @@ public class AdminFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession();
-        try {
-            Object status = session.getAttribute(Config.SESSION_ATTRIBUTE);
-            if (status!=null) {
-                if (status.equals(Config.SESSION_ADMIN)) {
-                    filterChain.doFilter(request, response);
-                    return;
-                } else if (status.equals(Config.SESSION_USER)) {
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    response.sendRedirect(request.getContextPath() + Config.USER_URL);
-                    return;
-                }
-            }
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect(Config.LOGIN_URL);
+
+        if (AuthenticationUtils.isAdmin(session)) {
+            filterChain.doFilter(request, response);
             return;
-        } catch (IllegalStateException e) {
+        } else if (AuthenticationUtils.userIsPresent(session)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.sendRedirect(Config.LOGIN_URL);
+            response.sendRedirect(request.getContextPath() + Config.USER_URL);
             return;
         }
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.sendRedirect(Config.LOGIN_URL);
+        return;
+
     }
 
     @Override

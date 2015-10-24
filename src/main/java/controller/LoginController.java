@@ -30,6 +30,7 @@ public class LoginController extends HttpServlet{
                 final String status = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
                 HttpSession session = request.getSession();
                 session.setAttribute(Config.SESSION_ATTRIBUTE, status);
+                session.setAttribute(Config.LOGIN_ATTRIBUTE, login);
                 response.sendRedirect("/" + Config.APP_NAME + "/");
                 return;
             }
