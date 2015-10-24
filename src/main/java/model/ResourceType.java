@@ -5,6 +5,7 @@ package model;
  */
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class ResourceType {
@@ -16,6 +17,9 @@ public class ResourceType {
 
     @Column(name="name", nullable = false)
     private String name;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "type")
+    private List<Resource> resources;
 
     public ResourceType() {
     }

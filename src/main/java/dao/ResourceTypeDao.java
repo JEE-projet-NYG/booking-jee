@@ -2,6 +2,7 @@ package dao;
 
 import config.Config;
 import controller.EntityManagerUtils;
+import model.Resource;
 import model.ResourceType;
 
 import javax.persistence.EntityManager;
@@ -41,12 +42,15 @@ public class ResourceTypeDao {
     }
 
     public void delete(final Long id) {
+
         final EntityManager em = EntityManagerUtils.getEntityManager();
         EntityTransaction trx = em.getTransaction();
 
         trx.begin();
 
-        em.persist(this.find(id));
+        ResourceType resourceType = this.find(id);
+
+        em.remove(resourceType);
 
         trx.commit();
     }
