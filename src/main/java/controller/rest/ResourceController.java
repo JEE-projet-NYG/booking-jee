@@ -9,7 +9,9 @@ import service.impl.ResourceServiceImpl;
 import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
@@ -22,9 +24,9 @@ public class ResourceController {
                                    @FormParam("localisation") final String localisation,
                                    @FormParam("responsibleId") final Long responsibleId,
                                    @FormParam("resourceTypeId") final Long typeId,
-                                   @CookieParam("session") Cookie cookieRole) {
+                                   @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
 
         final UserService userService = new UserServiceImpl();
@@ -56,9 +58,9 @@ public class ResourceController {
                                  @FormParam("localisation") final String localisation,
                                  @FormParam("responsibleId") final Long responsibleId,
                                  @FormParam("resourceTypeId") final Long typeId,
-                                 @CookieParam("session") Cookie cookieRole) {
+                                 @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final ResourceService resourceService = new ResourceServiceImpl();
         final Resource resource = resourceService.find(id);
@@ -94,9 +96,9 @@ public class ResourceController {
     @DELETE
     @Path("{id}")
     public Response deleteResource(@PathParam("id") Long id,
-                                   @CookieParam("session") Cookie cookieRole) {
+                                   @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(cookieRole)) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
 
         final ResourceService resourceService = new ResourceServiceImpl();
         final Resource resource = resourceService.find(id);

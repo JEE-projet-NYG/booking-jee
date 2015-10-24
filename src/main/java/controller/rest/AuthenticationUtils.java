@@ -2,6 +2,7 @@ package controller.rest;
 
 import config.Config;
 
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.CookieParam;
 import javax.ws.rs.core.Cookie;
 
@@ -14,12 +15,13 @@ public class AuthenticationUtils {
     /**
      * Check if the current user is an admin
      *
-     * @param cookieRole the cookie storing the role info
+     * @param session the session storing the role info
      * @return true if the user is an admin, false otherwise
      */
-    public static boolean isAdmin(Cookie cookieRole) {
-        final String cookieRoleValue = cookieRole == null ? null : cookieRole.getValue();
+    public static boolean isAdmin(HttpSession session) {
+        final String roleValue = (String) session.getAttribute("session");
 
-        return Config.SESSION_ADMIN.equals(cookieRoleValue);
+        //return Config.SESSION_ADMIN.equals(roleValue); // TODO remettre l'implémentation après le dev de NGI
+        return true;
     }
 }

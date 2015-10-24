@@ -19,6 +19,7 @@
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/resources">Resources</a></li>
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/resourceTypes">Resource Type</a></li>
             <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservations">Reservations</a></li>
+            <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/myReservations">My reversations</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>

@@ -23,12 +23,9 @@ public class EntityManagerFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("EntityManagerFilter");
-
         EntityManager em = null;
 
         try {
-            System.out.println("EntityManager created");
             em = entityManagerFactory.createEntityManager();
 
             EntityManagerUtils.ENTITY_MANAGERS.set(em);

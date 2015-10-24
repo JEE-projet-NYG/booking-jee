@@ -3,6 +3,8 @@ package dao;
 import config.Config;
 import controller.EntityManagerUtils;
 import model.Reservation;
+import model.Resource;
+import model.ResourceType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -97,8 +99,65 @@ public class ReservationDao {
      * @return all the reservations in the range
      */
     public List<Reservation> listInRange(Date dateMin, Date dateMax) {
-        final String displayAllQuery = "Select rsr from Reservation rsr where (:dateMin IS NULL OR dateStart >= :dateMin) and (:dateMax IS NULL OR dateEnd <= :dateMax)";
+        final String displayAllQuery = "Select rsr " +
+                "from Reservation rsr " +
+                "where " +
+                "((:dateMin IS NOT NULL AND :dateMax IS NOT NULL) AND ((:dateMax >= dateStart) and (dateEnd >= :dateMin))) OR " +
+                "((:dateMin IS     NULL AND :dateMax IS NOT NULL) AND (:dateMax >= dateStart)) OR " +
+                "((:dateMin IS NOT NULL AND :dateMax IS     NULL) AND (dateEnd >= :dateMin)) OR " +
+                "(:dateMin IS     NULL AND :dateMax IS     NULL)";
         TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
+        return e.getResultList();
+    }
+
+    /**
+     * Find all the reservations of a resource in a date range
+     * @param resource resource of the reservations
+     * @param dateMin minimum date (included) - can be null
+     * @param dateMax maximum date (included) - can be null
+     * @return all the reservations in the range
+     */
+    public List<Reservation> listInRange(Resource resource, Date dateMin, Date dateMax) {
+        final String displayAllQuery = "Select rsr " +
+                "from Reservation rsr " +
+                "where (rsr.resource.id = :resourceId) and (:dateMax >= dateStart) and (dateEnd >= :dateMin)";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("resourceId", resource.getId());
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
+        return e.getResultList();
+    }
+
+    /**
+     * Find all the reservations for the specified user
+     * @param login the login of the user
+     * @return all the reservations of the user
+     */
+    public List<Reservation> listByLogin(String login) {
+        final String displayAllByLogin = "Select rsr from Reservation rsr where borrower.login = :login";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllByLogin, Reservation.class);
+        e.setParameter("login", login);
+        return e.getResultList();
+    }
+
+    /**
+     * List of resources of the given type that are available to book in [dateMin;dateMax]
+     * @param resourceType type of the resources searched
+     * @param dateMin beginning of booking
+     * @param dateMax end of booking
+     * @return resources of the given type and available in the given period
+     */
+    public List<Resource> listAvailableResources(ResourceType resourceType, Date dateMin, Date dateMax) {
+        final String displayAllQuery = "Select res " +
+                "FROM Resource res WHERE res.type.id = :resourceTypeId AND NOT EXISTS (" +
+                "Select rsr " +
+                "from Reservation rsr " +
+                "where (rsr.resource.id = res.id) and (:dateMax >= rsr.dateStart) and (rsr.dateEnd >= :dateMin)" +
+                ")";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("resourceTypeId", resourceType.getId()   );
         e.setParameter("dateMin", dateMin);
         e.setParameter("dateMax", dateMax);
         return e.getResultList();

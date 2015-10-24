@@ -2,6 +2,7 @@ package dao;
 
 import controller.EntityManagerUtils;
 import model.Resource;
+import model.ResourceType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -68,8 +69,8 @@ public class ResourceDao {
     }
 
     public List<Resource> list(final String name) {
-        final String displayByNameQuery = "SELECT res" +
-                                          "FROM Resource res" +
+        final String displayByNameQuery = "SELECT res " +
+                                          "FROM Resource res " +
                                           "WHERE res.name like '%'"+name+"'%'";
         TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayByNameQuery, Resource.class);
         return query.getResultList();

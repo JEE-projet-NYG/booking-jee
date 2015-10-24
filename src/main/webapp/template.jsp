@@ -14,6 +14,10 @@
     </head>
 
     <body>
+
+        <!-- MODALS -->
+        <%@ include file="WEB-INF/jspf/modals.jspf" %>
+
         <!-- HEADER -->
         <%@ include file="WEB-INF/jspf/header.jspf" %>
     
@@ -21,9 +25,6 @@
 
             <!-- BODY -->
             <jsp:include page="${requestScope.page}"/>
-
-            <!-- MODALS -->
-            <%@ include file="WEB-INF/jspf/modals.jspf" %>
 
             <!-- FOOTER -->
             <div class="row">

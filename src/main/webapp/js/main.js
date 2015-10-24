@@ -5,10 +5,15 @@ $( document ).ready(function() {
         $('#createUserModal').modal('show');
     });
 
+    /* When creating a resource */
     $("body").on("click", "button.createResource", function(e) {
         $('#createResourceModal').modal('show');
     });
 
+    /* When creating a resource type */
+    $("body").on("click", "button.createResourceType", function(e) {
+        $('#createResourceTypeModal').modal('show');
+    });
 
     $('#logout').on('click', function(e){
         var request = $.ajax({
@@ -42,7 +47,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully created user.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -85,7 +90,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully edited user.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -132,7 +137,7 @@ $( document ).ready(function() {
             alertSuccess('Successfully created resource.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
@@ -146,10 +151,16 @@ $( document ).ready(function() {
     $("body").on("click", "#table-resources td a.edit", function(e) {
         var tr = $(this).closest('tr');
 
+        var responsibleId = tr.find('[name=responsibleId]').val();
+        var resourceTypeId = tr.find('[name=resourceTypeId]').val();
+
         $('#editResourceForm').find('[name="id"]').val(tr.find('.id').text());
         $('#editResourceForm').find('[name="name"]').val(tr.find('.name').text());
         $('#editResourceForm').find('[name="description"]').val(tr.find('.description').text());
         $('#editResourceForm').find('[name="localisation"]').val(tr.find('.localisation').text());
+
+        $('#editResourceForm').find('#responsibleId').val(responsibleId);
+        $('#editResourceForm').find('#resourceTypeId').val(resourceTypeId);
 
         $('#editResourceModal').modal('show');
     });
@@ -171,16 +182,16 @@ $( document ).ready(function() {
             alertSuccess('Successfully edited resource.');
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
-            })
+            });
 
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when editing resource.');
+            alertFailure('An error occured when editing Resource.');
         });
     });
 
-    /* When deleting an resource */
+    /* When deleting an Resource */
     $("body").on("click", "#table-resources td a.delete", function(e) {
 
         var tr = $(this).closest('tr');
@@ -200,15 +211,121 @@ $( document ).ready(function() {
             alertFailure('An error occured when deleting resource.');
         });
     });
-    
+
+    $('#createResourceTypeForm').on('submit', function(e){
+        alert("test");
+        e.preventDefault();
+        var form = $('#createResourceTypeForm').serialize();
+
+        var request = $.ajax({
+            url: "/api/resourceTypes/",
+            type: "put",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#createResourceTypeModal').modal('hide'); // hide the report form
+            $('#createResourceTypeForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully created ResourceType.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            });
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when creating ResourceType.');
+        });
+    });
+
+    /* When editing an ResourceType */
+    $("body").on("click", "#table-resourceTypes td a.edit", function(e) {
+        var tr = $(this).closest('tr');
+
+        $('#editResourceTypeForm').find('[name="id"]').val(tr.find('.id').text());
+        $('#editResourceTypeForm').find('[name="name"]').val(tr.find('.name').text());
+
+        $('#editResourceTypeModal').modal('show');
+    });
+
+    $('#editResourceTypeForm').on('submit', function(e){
+        e.preventDefault();
+
+        var form = $('#editResourceTypeForm').serialize();
+        var request = $.ajax({
+            url: "/api/resourceTypes/",
+            type: "post",
+            data: form
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            $('#editResourceTypeModal').modal('hide'); // hide the report form
+            $('#editResourceTypeForm')[0].reset(); // clear the report form
+
+            alertSuccess('Successfully edited ResourceType.');
+            $('#alertSuccess').on('hidden.bs.modal', function () {
+                location.reload(); // not ideal but ok for now
+            });
+
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when editing ResourceType.');
+        });
+    });
+
+    /* When deleting an ResourceType */
+    $("body").on("click", "#table-resourceTypes td a.delete", function(e) {
+
+        var tr = $(this).closest('tr');
+        var id = tr.find('.id').text();
+
+        var request = $.ajax({
+            url: "/api/resourceTypes/"+id,
+            type: "delete"
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            tr.remove();
+            alertSuccess('Succesfully deleted ResourceType.');
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occured when deleting ResourceType.');
+        });
+    });
+
+    /* When canceling a reservation */
+    $("body").on("click", "#table-reservations td a.cancel", function(e) {
+        var tr = $(this).closest('tr');
+
+        var id = tr.find('[name=id]').val();
+
+        var request = $.ajax({ // TODO a intégrer avec l'implémentation backend de NGI
+            url: "/api/reservations/cancel/",
+            type: "post",
+            data: id
+        });
+
+        request.success(function (response, textStatus, jqXHR) {
+            tr.remove();
+            alertSuccess('Successfully canceled the reservation.');
+        });
+
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            alertFailure('An error occurred when canceling the reservation.');
+        });
+
+    });
+
+    function alertSuccess(message){
+        $("#alertSuccess").find("p").text(message);
+        $("#alertSuccess").modal('show');
+    }
+
+    function alertFailure(message) {
+        $("#alertFailure").find("p").text(message);
+        $("#alertFailure").modal('show');
+    }
 });
-
-function alertSuccess(message){
-    $("#alertSuccess").find("p").text(message);
-    $("#alertSuccess").modal('show');
-}
-
-function alertFailure(message){
-    $("#alertFailure").find("p").text(message);
-    $("#alertFailure").modal('show');
-}
