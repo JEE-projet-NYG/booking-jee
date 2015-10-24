@@ -4,6 +4,7 @@ import config.Config;
 import controller.EntityManagerUtils;
 import model.Reservation;
 import model.Resource;
+import model.ResourceType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -138,6 +139,27 @@ public class ReservationDao {
         final String displayAllByLogin = "Select rsr from Reservation rsr where borrower.login = :login";
         TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllByLogin, Reservation.class);
         e.setParameter("login", login);
+        return e.getResultList();
+    }
+
+    /**
+     * List of resources of the given type that are available to book in [dateMin;dateMax]
+     * @param resourceType type of the resources searched
+     * @param dateMin beginning of booking
+     * @param dateMax end of booking
+     * @return resources of the given type and available in the given period
+     */
+    public List<Resource> listAvailableResources(ResourceType resourceType, Date dateMin, Date dateMax) {
+        final String displayAllQuery = "Select res " +
+                "FROM Resource res WHERE res.type.id = :resourceTypeId AND NOT EXISTS (" +
+                "Select rsr " +
+                "from Reservation rsr " +
+                "where (rsr.resource.id = res.id) and (:dateMax >= rsr.dateStart) and (rsr.dateEnd >= :dateMin)" +
+                ")";
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        e.setParameter("resourceTypeId", resourceType.getId()   );
+        e.setParameter("dateMin", dateMin);
+        e.setParameter("dateMax", dateMax);
         return e.getResultList();
     }
 }
