@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="WEB-INF/jspf/resourcesModals.jspf" %>
-<h1>Resources list <button type="button" class="btn btn-primary btn-circle btn-lg createResource"><i class="glyphicon glyphicon-plus"></i></button></h1>
+<h2 class="col-lg-4 col-lg-offset-4">Resources list <button type="button" class="btn btn-primary btn-circle btn-lg createResource"><i class="glyphicon glyphicon-plus"></i></button></h2>
 <table id="table-resources" class="table table-striped table-hover table-condensed">
     <tr>
         <td>Id</td>

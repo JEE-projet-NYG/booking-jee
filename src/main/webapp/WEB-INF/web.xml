@@ -43,6 +43,7 @@
         <url-pattern>/</url-pattern>
         <url-pattern>/overbooking/</url-pattern>
         <url-pattern>/overbooking/reservation</url-pattern>
+        <url-pattern>/overbooking/myReservations</url-pattern>
     </filter-mapping>
 
     <filter-mapping>
