@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -27,19 +28,20 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        Cookie[] cookies = request.getCookies();
-        if (cookies!=null) {
-            for (Cookie ck : cookies) {
-                if (Config.SESSION_ATTRIBUTE.equals(ck.getName())) {
-                    filterChain.doFilter(request, response);
-                    return;
-                }
+        HttpSession session = request.getSession();
+        try {
+            if (session.getAttribute(Config.SESSION_ATTRIBUTE) != null) {
+                filterChain.doFilter(request, response);
+                return;
             }
+            // user not logged in, redirect to the login page
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.sendRedirect(Config.LOGIN_URL);
+        } catch (IllegalStateException e) {
+            // user not logged in, redirect to the login page
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.sendRedirect(Config.LOGIN_URL);
         }
-
-        // user not logged in, redirect to the login page
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        request.getRequestDispatcher(Config.LOGIN_URL).forward(request, response);
     }
 
     @Override
