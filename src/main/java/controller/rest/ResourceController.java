@@ -8,11 +8,11 @@ import service.UserService;
 import service.impl.ResourceServiceImpl;
 import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
+import utils.AuthenticationUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
 @Path("/resources")

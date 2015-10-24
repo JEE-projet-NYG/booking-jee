@@ -89,4 +89,13 @@ public interface ReservationService {
      * @return resources of the given type and available in the given period
      */
     List<Resource> listAvailableResources(ResourceType resourceType, Date dateMin, Date dateMax);
+
+    /**
+     * List of resources of the given type that are available to book in [dateMin;dateMax]
+     * @param resourceType type of the resources searched
+     * @param dateMin beginning of booking
+     * @param dateMax end of booking
+     * @return resources of the given type and available in the given period
+     */
+    List<Resource> listAvailableResources(ResourceType resourceType, String dateMin, String dateMax);
 }

@@ -9,8 +9,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.datetimepicker.full.min.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
-
     </head>
 
     <body>
@@ -31,6 +29,8 @@
                 <%@ include file="WEB-INF/jspf/footer.jspf" %>
             </div>
 
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/js/formReservation.js"></script>
         </div>
     </body>
 

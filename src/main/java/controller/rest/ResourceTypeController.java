@@ -2,11 +2,11 @@ package controller.rest;
 import model.ResourceType;
 import service.ResourceTypeService;
 import service.impl.ResourceTypeServiceImpl;
+import utils.AuthenticationUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.Response;
 
 @Path("/resourceTypes")

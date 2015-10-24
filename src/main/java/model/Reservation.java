@@ -1,7 +1,5 @@
 package model;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -33,6 +31,13 @@ public class Reservation {
     private Resource resource;
 
     public Reservation() {
+    }
+
+    public Reservation(Date dateStart, Date dateEnd, User borrower, Resource resource) {
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.borrower = borrower;
+        this.resource = resource;
     }
 
     public Long getId() {

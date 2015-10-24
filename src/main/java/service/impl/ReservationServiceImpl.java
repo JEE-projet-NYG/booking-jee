@@ -6,6 +6,8 @@ import model.Resource;
 import model.ResourceType;
 import service.ReservationService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -57,5 +59,19 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Resource> listAvailableResources(ResourceType resourceType, Date dateMin, Date dateMax) {
         return ReservationDao.getDAO().listAvailableResources(resourceType, dateMin, dateMax);
+    }
+
+    @Override
+    public List<Resource> listAvailableResources(ResourceType resourceType, String dateMin, String dateMax) {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Date dateStart=null;
+        Date dateEnd=null;
+        try {
+            dateStart = formater.parse(dateMin);
+            dateEnd = formater.parse(dateMax);
+        } catch (ParseException e) {
+            //TODO exception
+        }
+        return ReservationDao.getDAO().listAvailableResources(resourceType, dateStart, dateEnd);
     }
 }

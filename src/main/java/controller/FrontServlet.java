@@ -75,6 +75,11 @@ public class FrontServlet extends HttpServlet {
                 case "/login":
                     req.setAttribute("page", "login.jsp");
                     break;
+                case "/form/reservation":
+                    req.setAttribute("resType", srt.listAll());
+                    req.setAttribute("rs",rs);
+                    req.setAttribute("page", "formReservation.jsp");
+                    break;
                 default:
                     req.setAttribute("page", "404.jsp");
                     break;

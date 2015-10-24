@@ -1,10 +1,8 @@
-package controller.rest;
+package utils;
 
 import config.Config;
 
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.CookieParam;
-import javax.ws.rs.core.Cookie;
 
 public class AuthenticationUtils {
 
