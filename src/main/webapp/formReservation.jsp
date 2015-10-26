@@ -56,7 +56,7 @@
                     </c:forEach>
                 </div>
             </div>
-            <button id="btnResa" type="submit" class="btn btn-success col-sm-3 col-sm-offset-4">Réserver</button>
+            <button id="btnResa" type="submit" class="btn btn-success col-sm-3 col-sm-offset-3">Réserver</button>
         </c:otherwise>
     </c:choose>
 </form>
