@@ -112,6 +112,9 @@ public class FrontServlet extends HttpServlet {
                 case "/login":
                     req = AuthenticationUtils.login(req);
                     if (AuthenticationUtils.userIsPresent(req.getSession())) {
+                        final String login = (String) req.getSession().getAttribute(Config.LOGIN_ATTRIBUTE);
+                        User user = new UserServiceImpl().find(login);
+                        req.setAttribute("user", user);
                         req.setAttribute("page", "accueil.jsp");
                     } else {
                         req.setAttribute("loginError", "Login/Mot de passe incorrect");

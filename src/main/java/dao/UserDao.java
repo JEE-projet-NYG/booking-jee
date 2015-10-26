@@ -45,7 +45,7 @@ public class UserDao {
 
         List<User> results = query.getResultList();
 
-        return (results != null && results.get(0) != null) ? results.get(0) : null;
+        return (results != null && !results.isEmpty()) ? results.get(0) : null;
     }
 
     /**
