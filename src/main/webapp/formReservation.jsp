@@ -9,12 +9,15 @@
     });
 </script>
 
-<h3>Réserver une ressource</h3>
+<div class="row">
+    <h3 class="col-sm-12">Réserver une ressource</h3>
+</div>
 
-<form id="fakeForm" class="row" method="get" action="/<%= Config.APP_NAME %>/reservation">
-    <div class="form-group">
-        <label for="selType" class="col-lg-2 col-sm-offset-1">Type de bien à réserver : </label>
-        <select id="selType" name="selType" class="col-lg-8" required>
+<form id="fakeForm" class="form-horizontal" method="get" action="/<%= Config.APP_NAME %>/reservation">
+    <div class="row">
+    <div class="form-group col-md-8">
+        <label for="selType" class="col-md-offset-3">Type de bien à réserver : </label>
+        <select id="selType" name="selType" class="form-control col-md-8 col-md-offset-3" required>
             <c:forEach items="${requestScope.resType}" var="type">
                 <c:choose>
                     <c:when test="${type.name.equals(requestScope.selType)}">
@@ -27,38 +30,40 @@
             </c:forEach>
         </select>
     </div>
-    <div class="form-group">
-        <label for="dateMin" class="col-lg-2 col-sm-offset-1">Date de début : </label>
-        <input type="text" name="dateMin" id="dateMin" value="${requestScope.dateMin}" class="col-lg-8" required>
+    <div class="form-group col-md-8">
+        <label for="dateMin" class="col-md-offset-3">Date de début : </label>
+        <input type="text" name="dateMin" id="dateMin" value="${requestScope.dateMin}" class="form-control col-md-offset-3"  required>
     </div>
-    <div class="form-group">
-        <label for="dateMax" class="col-lg-2 col-sm-offset-1">Date de fin : </label>
-        <input type="text" name="dateMax" id="dateMax" value="${requestScope.dateMax}" class="col-lg-8" required>
+    <div class="form-group col-md-8">
+        <label for="dateMax" class="col-md-offset-3">Date de fin : </label>
+        <input type="text" name="dateMax" id="dateMax" value="${requestScope.dateMax}" class="form-control col-md-offset-3" required>
     </div>
-    <p id="dateError" class="red-error col-xs-10 col-xs-offset-2">${requestScope.dateError}</p>
-    <button type="submit" class="btn btn-default col-sm-2 col-sm-offset-5">Rechercher</button>
+    <p id="dateError">${requestScope.dateError}</p>
+        </div>
+    <div class="row">
+        <button type="submit" class="btn btn-default col-md-2 col-md-offset-5">Rechercher</button>
+    </div>
 </form>
-<form id="formReservation" method="post" action="/<%= Config.APP_NAME %>/reservation" class="row">
-    <input type="hidden" name="dateStart" id="dateStart" value="${requestScope.dateMin}">
-    <input type="hidden" name="dateEnd" id="dateEnd" value="${requestScope.dateMax}">
-    <c:choose>
-        <c:when test="${requestScope.avRes==null}">
-
-        </c:when>
-        <c:when test="${requestScope.avRes.size()==0}">
-            <label class="col-lg-2 col-sm-offset-1">Ressource : </label>
-            <p class="col-lg-8">Pas de ressource disponible pour ces paramètres</p>
-        </c:when>
-        <c:otherwise>
-            <div class="form-group">
-                <label for="resources" class="col-lg-2 col-sm-offset-1">Ressource : </label>
-                <div id="resources" class="col-lg-8">
-                    <c:forEach items="${requestScope.avRes}" var="resource">
-                        <input type="radio" name="resourceId" value="${resource.id}" required>&nbsp <span class="resTitle">${resource.name}</span> : ${resource.description}</input>
-                    </c:forEach>
+<form id="formReservation" method="post" action="/<%= Config.APP_NAME %>/reservation" class="form-horizontal">
+    <div class="row">
+        <input type="hidden" name="dateStart" id="dateStart" value="${requestScope.dateMin}">
+        <input type="hidden" name="dateEnd" id="dateEnd" value="${requestScope.dateMax}">
+        <c:choose>
+            <c:when test="${empty requestScope.avRes}">
+                <label class="col-md-5 col-md-offset-3">Ressource : </label>
+                <p class="col-md-5 col-md-offset-3">Pas de ressource disponible pour ces paramètres</p>
+            </c:when>
+            <c:otherwise>
+                <div class="form-group col-md-8">
+                    <label for="resources" class="col-md-offset-3">Ressource : </label>
+                    <select id="resourceId" name="resourceId" class="col-md-offset-3 form-control">
+                        <c:forEach items="${requestScope.avRes}" var="resource">
+                            <option value="${resource.id}" required><span class="resTitle">${resource.name}</span> : ${resource.description}</option>
+                        </c:forEach>
+                    </select>
                 </div>
-            </div>
-            <button id="btnResa" type="submit" class="btn btn-success col-sm-2 col-sm-offset-2">Réserver</button>
-        </c:otherwise>
-    </c:choose>
+                <button id="btnResa" type="submit" class="btn btn-success col-md-2 col-md-offset-5">Réserver</button>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </form>
