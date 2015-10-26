@@ -11,7 +11,7 @@
 </script>
 
 <form class="col-sm-12 col-lg-6 col-lg-offset-3">
-    <p>Du : <input type="text" name="timePickerMin" id="timePickerMin" value="${pageContext.request.getParameter("timePickerMin")}"> Au : <input type="text" name="timePickerMax" id="timePickerMax" value="${pageContext.request.getParameter("timePickerMax")}"> <button type="submit" class="btn btn-default">Rechercher</button></p>
+    <p>From : <input type="text" name="timePickerMin" id="timePickerMin" value="${pageContext.request.getParameter("timePickerMin")}"> To : <input type="text" name="timePickerMax" id="timePickerMax" value="${pageContext.request.getParameter("timePickerMax")}"> <button type="submit" class="btn btn-default">Search</button></p>
 </form>
 
 
@@ -22,6 +22,7 @@
         <td>End</td>
         <td>Borrower</td>
         <td>Resource</td>
+        <td>Cancel</td>
     </tr>
     <c:forEach var="reservation" items="${requestScope.reservations}">
         <tr>
