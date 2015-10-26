@@ -2,6 +2,7 @@ package controller;
 
 import config.Config;
 import model.Reservation;
+import model.User;
 import service.ReservationService;
 import service.ResourceService;
 import service.ResourceTypeService;
@@ -47,6 +48,8 @@ public class FrontServlet extends HttpServlet {
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
+                    User user = su.find(req.getParameter("login"));
+                    req.setAttribute("user", user);
                     req.setAttribute("page", "accueil.jsp");
                     break;
                 case "/users":

@@ -9,6 +9,8 @@
     });
 </script>
 
+<h3>Réserver une ressource</h3>
+
 <form id="fakeForm" class="row" method="get" action="/<%= Config.APP_NAME %>/reservation">
     <div class="form-group">
         <label for="selType" class="col-lg-2 col-sm-offset-1">Type de bien à réserver : </label>
@@ -33,8 +35,8 @@
         <label for="dateMax" class="col-lg-2 col-sm-offset-1">Date de fin : </label>
         <input type="text" name="dateMax" id="dateMax" value="${requestScope.dateMax}" class="col-lg-8" required>
     </div>
-    <p id="dateError" class="red-error col-xs-12">${requestScope.dateError}</p>
-    <button type="submit" class="btn btn-default col-sm-2 col-sm-offset-6">Rechercher</button>
+    <p id="dateError" class="red-error col-xs-10 col-xs-offset-2">${requestScope.dateError}</p>
+    <button type="submit" class="btn btn-default col-sm-2 col-sm-offset-5">Rechercher</button>
 </form>
 <form id="formReservation" method="post" action="/<%= Config.APP_NAME %>/reservation" class="row">
     <input type="hidden" name="dateStart" id="dateStart" value="${requestScope.dateMin}">
@@ -48,7 +50,7 @@
             <p class="col-lg-8">Pas de ressource disponible pour ces paramètres</p>
         </c:when>
         <c:otherwise>
-            <div id="ressourcesDiv" class="form-group">
+            <div class="form-group">
                 <label for="resources" class="col-lg-2 col-sm-offset-1">Ressource : </label>
                 <div id="resources" class="col-lg-8">
                     <c:forEach items="${requestScope.avRes}" var="resource">
@@ -56,7 +58,7 @@
                     </c:forEach>
                 </div>
             </div>
-            <button id="btnResa" type="submit" class="btn btn-success col-sm-3 col-sm-offset-2">Réserver</button>
+            <button id="btnResa" type="submit" class="btn btn-success col-sm-2 col-sm-offset-2">Réserver</button>
         </c:otherwise>
     </c:choose>
 </form>

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<h2 class="col-lg-4 col-lg-offset-4">Reservations list</h2>
+<h3 class="col-lg-4 col-lg-offset-4">Reservations list</h3>
 
 <script>
     $(function() {
