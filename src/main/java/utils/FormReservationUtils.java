@@ -29,7 +29,7 @@ public class FormReservationUtils {
         String dateMin = request.getParameter("dateMin");
         String dateMax = request.getParameter("dateMax");
 
-        if (dateMin.compareTo(dateMax)>=0) {
+        if (dateMin.compareTo(dateMax)<=0) {
             List<Resource> availableResources = (new ReservationServiceImpl()).listAvailableResources(resType, dateMin, dateMax);
             request.setAttribute("avRes", availableResources);
         } else {

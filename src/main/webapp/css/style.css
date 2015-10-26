@@ -34,3 +34,7 @@ footer {
 .red-error {
     color: red;
 }
+
+#ressourcesDiv , #dateError{
+    margin-bottom: 15px;
+}

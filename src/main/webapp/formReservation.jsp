@@ -33,7 +33,7 @@
         <label for="dateMax" class="col-lg-2 col-sm-offset-1">Date de fin : </label>
         <input type="text" name="dateMax" id="dateMax" value="${requestScope.dateMax}" class="col-lg-8" required>
     </div>
-    <p class="red-error">${requestScope.dateError}</p>
+    <p id="dateError" class="red-error col-xs-12">${requestScope.dateError}</p>
     <button type="submit" class="btn btn-default col-sm-2 col-sm-offset-6">Rechercher</button>
 </form>
 <form id="formReservation" method="post" action="/<%= Config.APP_NAME %>/reservation" class="row">
@@ -48,7 +48,7 @@
             <p class="col-lg-8">Pas de ressource disponible pour ces paramètres</p>
         </c:when>
         <c:otherwise>
-            <div class="form-group">
+            <div id="ressourcesDiv" class="form-group">
                 <label for="resources" class="col-lg-2 col-sm-offset-1">Ressource : </label>
                 <div id="resources" class="col-lg-8">
                     <c:forEach items="${requestScope.avRes}" var="resource">
@@ -56,7 +56,7 @@
                     </c:forEach>
                 </div>
             </div>
-            <button id="btnResa" type="submit" class="btn btn-success col-sm-3 col-sm-offset-3">Réserver</button>
+            <button id="btnResa" type="submit" class="btn btn-success col-sm-3 col-sm-offset-2">Réserver</button>
         </c:otherwise>
     </c:choose>
 </form>
