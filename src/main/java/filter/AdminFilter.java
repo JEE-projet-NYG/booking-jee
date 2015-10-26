@@ -23,8 +23,6 @@ public class AdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("AdminFilter");
-
         if (filterConfig==null) return;
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
