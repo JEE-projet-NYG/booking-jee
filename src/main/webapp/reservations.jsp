@@ -34,6 +34,7 @@
             </td>
             <td class="borrower">${reservation.borrower.login}</td>
             <td class="resource">${reservation.resource.name}</td>
+            <td><a class="cancel" href="#"><i class="glyphicon glyphicon-remove-circle"></i></a></td>
         </tr>
     </c:forEach>
 </table>

@@ -63,7 +63,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<Resource> listAvailableResources(ResourceType resourceType, String dateMin, String dateMax) {
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM/dd HH:mm");
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date dateStart=null;
         Date dateEnd=null;
         try {
