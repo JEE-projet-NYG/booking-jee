@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 
+    var pageContext = "/overbooking";
+
     /* When creating an user */
     $("body").on("click", "button.createUser", function(e) {
         $('#createUserModal').modal('show');
@@ -17,7 +19,7 @@ $( document ).ready(function() {
 
     $('#logout').on('click', function(e){
         var request = $.ajax({
-            url: "/login",
+            url: pageContext+"/login",
             type: "get"
         });
 
@@ -35,7 +37,7 @@ $( document ).ready(function() {
         var form = $('#createUserForm').serialize().replace("admin=on", "admin=true");
 
         var request = $.ajax({
-            url: "/api/users/",
+            url: pageContext+"/api/users/",
             type: "put",
             data: form
         });
@@ -44,7 +46,7 @@ $( document ).ready(function() {
             $('#createUserModal').modal('hide'); // hide the report form
             $('#createUserForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully created user.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -52,7 +54,7 @@ $( document ).ready(function() {
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when creating user.');
+            alertFailure(jqXHR.responseText);
         });
     });
 
@@ -78,7 +80,7 @@ $( document ).ready(function() {
 
         var form = $('#editUserForm').serialize().replace("admin=on", "admin=true");
         var request = $.ajax({
-            url: "/api/users/",
+            url: pageContext+"/api/users/",
             type: "post",
             data: form
         });
@@ -87,7 +89,7 @@ $( document ).ready(function() {
             $('#editUserModal').modal('hide'); // hide the report form
             $('#editUserForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully edited user.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -95,7 +97,7 @@ $( document ).ready(function() {
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when editing user.');
+            alertFailure(jqXHR.responseText);
         });
     });
 
@@ -106,17 +108,17 @@ $( document ).ready(function() {
         var id = tr.find('.id').text();
 
         var request = $.ajax({
-            url: "/api/users/"+id,
+            url: pageContext+"/api/users/"+id,
             type: "delete"
         });
 
         request.success(function (response, textStatus, jqXHR) {
             tr.remove();
-            alertSuccess('Succesfully deleted user.');
+            alertSuccess(jqXHR.responseText);
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when deleting user.');
+            alertFailure(jqXHR.responseText);
         });
     });
 
@@ -125,7 +127,7 @@ $( document ).ready(function() {
         var form = $('#createResourceForm').serialize();
 
         var request = $.ajax({
-            url: "/api/resources/",
+            url: pageContext+"/api/resources/",
             type: "put",
             data: form
         });
@@ -134,7 +136,7 @@ $( document ).ready(function() {
             $('#createResourceModal').modal('hide'); // hide the report form
             $('#createResourceForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully created resource.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -142,7 +144,7 @@ $( document ).ready(function() {
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when creating resource.');
+            alertFailure('An error occurred when creating resource.');
         });
     });
 
@@ -170,7 +172,7 @@ $( document ).ready(function() {
 
         var form = $('#editResourceForm').serialize();
         var request = $.ajax({
-            url: "/api/resources/",
+            url: pageContext+"/api/resources/",
             type: "post",
             data: form
         });
@@ -179,7 +181,7 @@ $( document ).ready(function() {
             $('#editResourceModal').modal('hide'); // hide the report form
             $('#editResourceForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully edited resource.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -187,7 +189,7 @@ $( document ).ready(function() {
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when editing Resource.');
+            alertFailure('An error occurred when editing Resource.');
         });
     });
 
@@ -198,27 +200,30 @@ $( document ).ready(function() {
         var id = tr.find('.id').text();
 
         var request = $.ajax({
-            url: "/api/resources/"+id,
+            url: pageContext+"/api/resources/"+id,
             type: "delete"
         });
 
         request.success(function (response, textStatus, jqXHR) {
             tr.remove();
-            alertSuccess('Succesfully deleted resource.');
+            alertSuccess(jqXHR.responseText);
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when deleting resource.');
+            if(jqXHR.status == 409) {
+                alertFailure(jqXHR.responseText);
+            } else {
+                alertFailure('An error occured when deleting resource.');
+            }
         });
     });
 
     $('#createResourceTypeForm').on('submit', function(e){
-        alert("test");
         e.preventDefault();
         var form = $('#createResourceTypeForm').serialize();
 
         var request = $.ajax({
-            url: "/api/resourceTypes/",
+            url: pageContext+"/api/resourceTypes/",
             type: "put",
             data: form
         });
@@ -227,7 +232,7 @@ $( document ).ready(function() {
             $('#createResourceTypeModal').modal('hide'); // hide the report form
             $('#createResourceTypeForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully created ResourceType.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -254,7 +259,7 @@ $( document ).ready(function() {
 
         var form = $('#editResourceTypeForm').serialize();
         var request = $.ajax({
-            url: "/api/resourceTypes/",
+            url: pageContext+"/api/resourceTypes/",
             type: "post",
             data: form
         });
@@ -263,7 +268,7 @@ $( document ).ready(function() {
             $('#editResourceTypeModal').modal('hide'); // hide the report form
             $('#editResourceTypeForm')[0].reset(); // clear the report form
 
-            alertSuccess('Successfully edited ResourceType.');
+            alertSuccess(jqXHR.responseText);
             $('#alertSuccess').on('hidden.bs.modal', function () {
                 location.reload(); // not ideal but ok for now
             });
@@ -282,17 +287,22 @@ $( document ).ready(function() {
         var id = tr.find('.id').text();
 
         var request = $.ajax({
-            url: "/api/resourceTypes/"+id,
+            url: pageContext+"/api/resourceTypes/"+id,
             type: "delete"
         });
 
         request.success(function (response, textStatus, jqXHR) {
             tr.remove();
-            alertSuccess('Succesfully deleted ResourceType.');
+            alertSuccess(jqXHR.responseText);
         });
 
         request.fail(function (jqXHR, textStatus, errorThrown) {
-            alertFailure('An error occured when deleting ResourceType.');
+            if(jqXHR.status == 409) {
+                alertFailure(jqXHR.responseText)
+            } else {
+                alertFailure('An error occurred when deleting ResourceType.');
+
+            }
         });
     });
 
@@ -303,7 +313,7 @@ $( document ).ready(function() {
         var id = tr.find('.id').text();
 
         var request = $.ajax({
-            url: "/overbooking/reservation/delete?id="+id,
+            url: pageContext+"/overbooking/reservation/delete?id="+id,
             type: "post"
         });
 

@@ -4,6 +4,7 @@ import service.ResourceTypeService;
 import service.impl.ResourceTypeServiceImpl;
 import utils.AuthenticationUtils;
 
+import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -63,7 +64,12 @@ public class ResourceTypeController {
         if(resourceType == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        resourceTypeService.delete(resourceType);
+        try {
+            resourceTypeService.delete(resourceType);
+        }
+        catch(RollbackException cve) {
+            return Response.status(Response.Status.CONFLICT).entity("You can't delete a resource type because one resource is linked to a reservation").build();
+        }
 
         return Response.status(Response.Status.OK)
                 .entity("ResourceType " + resourceType.getName() + " has been successfully deleted.").build();

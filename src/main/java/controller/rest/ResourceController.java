@@ -10,6 +10,7 @@ import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
 import utils.AuthenticationUtils;
 
+import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -106,8 +107,13 @@ public class ResourceController {
         if(resource == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
-        resourceService.delete(resource);
 
+        try {
+            resourceService.delete(resource);
+        }
+        catch(RollbackException cve) {
+            return Response.status(Response.Status.CONFLICT).entity("You can't delete a resource if there is at least one reservation linked to it").build();
+        }
         return Response.status(Response.Status.OK)
                 .entity("Resource " + resource.getName() + " has been successfully deleted.").build();
     }

@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
         }
         // user not logged in, redirect to the login page
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.sendRedirect(Config.LOGIN_URL);
+        response.sendRedirect(request.getContextPath() + Config.LOGIN_URL);
 
     }
 

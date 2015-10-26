@@ -39,7 +39,7 @@ public class AdminFilter implements Filter {
             return;
         }
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.sendRedirect(Config.LOGIN_URL);
+        response.sendRedirect(request.getContextPath() + Config.LOGIN_URL);
         return;
 
     }

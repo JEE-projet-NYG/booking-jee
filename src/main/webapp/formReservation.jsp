@@ -13,7 +13,7 @@
     <h3 class="col-sm-12">Book a resource</h3>
 </div>
 
-<form id="fakeForm" class="form-horizontal" method="get" action="/<%= Config.APP_NAME %>/reservation">
+<form id="fakeForm" class="form-horizontal" method="get" action=${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservation">
     <div class="row">
     <div class="form-group col-md-8">
         <label for="selType" class="col-md-offset-3">Type of resource : </label>
@@ -44,7 +44,7 @@
         <button type="submit" class="btn btn-default col-md-2 col-md-offset-5">Search</button>
     </div>
 </form>
-<form id="formReservation" method="post" action="/<%= Config.APP_NAME %>/reservation" class="form-horizontal">
+<form id="formReservation" method="post" action="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservation" class="form-horizontal">
     <div class="row">
         <input type="hidden" name="dateStart" id="dateStart" value="${requestScope.dateMin}">
         <input type="hidden" name="dateEnd" id="dateEnd" value="${requestScope.dateMax}">
@@ -55,7 +55,7 @@
             </c:when>
             <c:otherwise>
                 <div class="form-group col-md-8">
-                    <label for="resources" class="col-md-offset-3">Resource : </label>
+                    <label for="resourceId" class="col-md-offset-3">Resource : </label>
                     <select id="resourceId" name="resourceId    " class="col-md-offset-3 form-control">
                         <c:forEach items="${requestScope.avRes}" var="resource">
                             <option value="${resource.id}" required><span class="resTitle">${resource.name}</span> : ${resource.description}</option>

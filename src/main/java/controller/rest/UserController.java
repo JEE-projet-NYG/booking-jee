@@ -22,7 +22,7 @@ public class UserController {
                                @FormParam("admin") final Boolean admin,
                                @Context HttpServletRequest request) {
 
-        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (!AuthenticationUtils.isAdmin(request.getSession())) return Response.status(Response.Status.UNAUTHORIZED).entity("Error when creating user " + login).build();
 
         final UserService userService = new UserServiceImpl();
         final User user = new User(login, password, lastname, firstname, mailAddress, phoneNumber, admin == null ? false : admin);
@@ -50,7 +50,7 @@ public class UserController {
         final User user = userService.find(id);
 
         if(user == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("User " + login + " has not been editer because it does not exist").build();
         }
 
         user.setLogin(login);
@@ -78,7 +78,7 @@ public class UserController {
         final User user = userService.find(id);
 
         if(user == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("Unable to delete the user").build();
         }
         userService.delete(user);
 
