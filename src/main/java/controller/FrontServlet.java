@@ -48,8 +48,11 @@ public class FrontServlet extends HttpServlet {
         if (pathInfo != null) {
             switch (pathInfo) {
                 case "/":
-                    User user = su.find(req.getParameter("login"));
-                    req.setAttribute("user", user);
+                    if(AuthenticationUtils.userIsPresent(req.getSession())) {
+                        final String login = (String) req.getSession().getAttribute(Config.LOGIN_ATTRIBUTE);
+                        User user = new UserServiceImpl().find(login);
+                        req.setAttribute("user", user);
+                    }
                     req.setAttribute("page", "accueil.jsp");
                     break;
                 case "/users":
