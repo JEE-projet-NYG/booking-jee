@@ -300,12 +300,11 @@ $( document ).ready(function() {
     $("body").on("click", "#table-reservations td a.cancel", function(e) {
         var tr = $(this).closest('tr');
 
-        var id = tr.find('[name=id]').val();
+        var id = tr.find('.id').text();
 
-        var request = $.ajax({ // TODO a intégrer avec l'implémentation backend de NGI
-            url: "/api/reservations/cancel/",
-            type: "post",
-            data: id
+        var request = $.ajax({
+            url: "/overbooking/reservation/delete?id="+id,
+            type: "post"
         });
 
         request.success(function (response, textStatus, jqXHR) {

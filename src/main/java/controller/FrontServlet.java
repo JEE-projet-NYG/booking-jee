@@ -91,7 +91,7 @@ public class FrontServlet extends HttpServlet {
                 case "/reservation":
                     req = FormReservationUtils.getAvailableResource(req);
                     req.setAttribute("resType", srt.listAll());
-                    req.setAttribute("page","formReservation.jsp");
+                    req.setAttribute("page", "formReservation.jsp");
                     break;
                 default:
                     req.setAttribute("page", "404.jsp");
@@ -117,7 +117,13 @@ public class FrontServlet extends HttpServlet {
                     break;
                 case "/reservation":
                     FormReservationUtils.reserve(req);
+                    final String login = (String) req.getSession().getAttribute(Config.LOGIN_ATTRIBUTE);
+                    List<Reservation> myReservations = rs.listByLogin(login);
+                    req.setAttribute("reservations", myReservations);
                     req.setAttribute("page", "myReservations.jsp");
+                    break;
+                case "/reservation/delete":
+                    rs.delete(rs.find(Long.parseLong(req.getParameter("id"))));
                     break;
                 default:
                     req.setAttribute("page", "404.jsp");
