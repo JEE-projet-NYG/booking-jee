@@ -1,14 +1,12 @@
 package dao;
 
-import config.Config;
-import controller.EntityManagerUtils;
+import utils.EntityManagerUtils;
 import model.Reservation;
 import model.Resource;
 import model.ResourceType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import java.util.Date;
 import java.util.List;
@@ -156,7 +154,7 @@ public class ReservationDao {
                 "from Reservation rsr " +
                 "where (rsr.resource.id = res.id) and (:dateMax >= rsr.dateStart) and (rsr.dateEnd >= :dateMin)" +
                 ")";
-        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Reservation.class);
+        TypedQuery e = EntityManagerUtils.getEntityManager().createQuery(displayAllQuery, Resource.class);
         e.setParameter("resourceTypeId", resourceType.getId()   );
         e.setParameter("dateMin", dateMin);
         e.setParameter("dateMax", dateMax);

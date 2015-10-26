@@ -1,7 +1,6 @@
 package dao;
 
-import config.Config;
-import controller.EntityManagerUtils;
+import utils.EntityManagerUtils;
 import model.User;
 
 import javax.persistence.EntityManager;

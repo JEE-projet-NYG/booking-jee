@@ -1,7 +1,11 @@
 package utils;
 
 import config.Config;
+import model.User;
+import service.UserService;
+import service.impl.UserServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class AuthenticationUtils {
@@ -42,6 +46,31 @@ public class AuthenticationUtils {
         }
 
         return roleValue!=null;
+    }
+
+    public static HttpServletRequest login(HttpServletRequest request) {
+        final String login = request.getParameter("login");
+        final String password = request.getParameter("password");
+
+        final UserService userService = new UserServiceImpl();
+        final User user = userService.find(login);
+
+        if (user != null) {
+            if (password.equals(user.getPassword())) {
+                final String status = user.getAdmin() ? Config.SESSION_ADMIN : Config.SESSION_USER ;
+                HttpSession session = request.getSession();
+                session.setAttribute(Config.SESSION_ATTRIBUTE, status);
+                session.setAttribute(Config.LOGIN_ATTRIBUTE, login);
+            }
+        }
+
+        return request;
+    }
+
+    public static HttpServletRequest logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return request;
     }
 
 

@@ -1,7 +1,7 @@
 package filter;
 
 import config.Config;
-import controller.EntityManagerUtils;
+import utils.EntityManagerUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

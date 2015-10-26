@@ -1,8 +1,7 @@
 package dao;
 
-import controller.EntityManagerUtils;
+import utils.EntityManagerUtils;
 import model.Resource;
-import model.ResourceType;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

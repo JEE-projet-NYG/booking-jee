@@ -10,6 +10,8 @@ import service.impl.ReservationServiceImpl;
 import service.impl.ResourceServiceImpl;
 import service.impl.ResourceTypeServiceImpl;
 import service.impl.UserServiceImpl;
+import utils.AuthenticationUtils;
+import utils.FormReservationUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -72,13 +74,47 @@ public class FrontServlet extends HttpServlet {
                     req.setAttribute("reservations", myReservations);
                     req.setAttribute("page", "myReservations.jsp");
                     break;
-                case "/login":
+                case "/form/login":
+                    req.setAttribute("page", "login.jsp");
+                    break;
+                case "/logout":
+                    req = AuthenticationUtils.logout(req);
                     req.setAttribute("page", "login.jsp");
                     break;
                 case "/form/reservation":
                     req.setAttribute("resType", srt.listAll());
-                    req.setAttribute("rs",rs);
                     req.setAttribute("page", "formReservation.jsp");
+                    break;
+                case "/reservation":
+                    req = FormReservationUtils.getAvailableResource(req);
+                    req.setAttribute("resType", srt.listAll());
+                    req.setAttribute("page","formReservation.jsp");
+                    break;
+                default:
+                    req.setAttribute("page", "404.jsp");
+                    break;
+            }
+            req.getRequestDispatcher("/template.jsp").forward(req, resp);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String pathInfo = req.getPathInfo();
+        if (pathInfo != null) {
+            switch (pathInfo) {
+                case "/login":
+                    req = AuthenticationUtils.login(req);
+                    if (AuthenticationUtils.userIsPresent(req.getSession())) {
+                        req.setAttribute("page", "accueil.jsp");
+                    } else {
+                        req.setAttribute("loginError", "Login/Mot de passe incorrect");
+                        req.setAttribute("page", "login.jsp");
+                    }
+                    break;
+                case "/reservation":
+                    FormReservationUtils.reserve(req);
+                    req.setAttribute("page", "myReservations.jsp");
                     break;
                 default:
                     req.setAttribute("page", "404.jsp");

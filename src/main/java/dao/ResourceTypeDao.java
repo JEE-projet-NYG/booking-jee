@@ -1,8 +1,6 @@
 package dao;
 
-import config.Config;
-import controller.EntityManagerUtils;
-import model.Resource;
+import utils.EntityManagerUtils;
 import model.ResourceType;
 
 import javax.persistence.EntityManager;
@@ -79,9 +77,9 @@ public class ResourceTypeDao {
      * @return the list of users matching the filter
      */
     public List<ResourceType> list(final String name) {
-        final String displayAllByNameQuery = "Select usr " +
-                "from ResourceType usr " +
-                "where usr.name like '%" + name + "%'";
+        final String displayAllByNameQuery = "Select rsType " +
+                "from ResourceType rsType " +
+                "where rsType.name like '%" + name + "%'";
         TypedQuery query = EntityManagerUtils.getEntityManager().createQuery(displayAllByNameQuery, ResourceType.class);
         return query.getResultList();
     }

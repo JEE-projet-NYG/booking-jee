@@ -30,3 +30,7 @@ footer {
     line-height: 1.33;
     border-radius: 25px;
 }
+
+.red-error {
+    color: red;
+}

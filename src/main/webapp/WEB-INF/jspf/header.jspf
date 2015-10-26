@@ -25,7 +25,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${sessionScope.session!=null}">
-                <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                <li><a href="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/logout">Logout</a></li>
             </c:if>
         </ul>
     </div>

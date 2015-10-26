@@ -13,7 +13,7 @@ public class Config {
     public static final String SESSION_USER = "user";
     public static final String LOGIN_ATTRIBUTE = "login";
 
-    public static final String LOGIN_URL = "/"+APP_NAME+"/login";
+    public static final String LOGIN_URL = "/"+APP_NAME+"/form/login";
     public static final String USER_URL = "/"+APP_NAME+"/myReservations";
 
     public static final String PERSISTENCE_UNIT = "rootUnit";
