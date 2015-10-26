@@ -36,7 +36,6 @@ public class EntityManagerFilter implements Filter {
             try {
                 if (em != null) em.close();
             } catch (Throwable t) {
-                // TODO log the error
             }
         }
     }
