@@ -13,7 +13,7 @@
     <h3 class="col-sm-12">Book a resource</h3>
 </div>
 
-<form id="fakeForm" class="form-horizontal" method="get" action=${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservation">
+<form id="fakeForm" class="form-horizontal" method="get" action="${pageContext.request.contextPath}/<%= Config.APP_NAME %>/reservation">
     <div class="row">
     <div class="form-group col-md-8">
         <label for="selType" class="col-md-offset-3">Type of resource : </label>
@@ -56,7 +56,7 @@
             <c:otherwise>
                 <div class="form-group col-md-8">
                     <label for="resourceId" class="col-md-offset-3">Resource : </label>
-                    <select id="resourceId" name="resourceId    " class="col-md-offset-3 form-control">
+                    <select id="resourceId" name="resourceId" class="col-md-offset-3 form-control">
                         <c:forEach items="${requestScope.avRes}" var="resource">
                             <option value="${resource.id}" required><span class="resTitle">${resource.name}</span> : ${resource.description}</option>
                         </c:forEach>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
         <p class="col-sm-5">Created by Guillaume Pouilloux, Yann Rolland and Nathanaël Gimenez.</p>
-        <p class="col-sm-5">This is a short project during our learning of (old) JavaEE.</p>
+        <p class="col-sm-5">This is a short project during our learning of JavaEE.</p>
         <p class="col-sm-1 col-sm-offset-1">2015</p>
 </footer>
